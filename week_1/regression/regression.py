@@ -2,6 +2,7 @@ import csv
 import copy
 import math
 import json
+import numpy as np
 
 unique_word = {}
 
@@ -45,6 +46,16 @@ def one_hot(datas):
     return tf_mat
 
 
+def load_valid_mat():
+    with open('validation_set.csv') as f:
+        datas = []
+        f_csv = csv.DictReader(f)
+        for line in f_csv:
+            datas.append([line['anger'], line['disgust'], line['fear'], line['joy'], line['sad'],
+                          line['surprise']])
+    return datas
+
+
 def load_validation():
     with open('validation_set.csv') as f:
         datas = []
@@ -84,12 +95,18 @@ def get_distance(test_exam, train_data):
 
 def k_result(k, res):
     res.sort(key=lambda x: x['distance'])
-    emotions = [0] * 5
+    emotions = {'anger': 0, 'disgust': 0, 'fear': 0, 'joy': 0, 'sad': 0, 'surprise': 0}
+    emotions_map = ['anger', 'disgust', 'fear', 'joy', 'sad', 'surprise']
     for i in range(k):
-        for one_emo in range(len(res[i]['emotion'])):
-            emotions[one_emo] += res[i]['emotion'][one_emo] / res[i]['distance']
-    items = sorted(emotions.items(), key=lambda item: item[1])
-    return items[-1][0]
+        for one_emo in range(6):
+            try:
+                emotions[emotions_map[one_emo]] += res[i]['emotion'][one_emo] / res[i]['distance']
+            except:
+                a = 6
+    emotion_sum = sum(emotions.values())
+    for key in emotions_map:
+        emotions[key] = emotions[key] / emotion_sum
+    return emotions
 
 
 train_data = load_train()
@@ -100,15 +117,13 @@ valid_one_hot_mat = one_hot(validation_data)
 # save_one_hot('valid_one_hot_mat', valid_one_hot_mat)
 # train_one_hot_mat = load_one_hot('train_one_hot_mat')
 # valid_one_hot_mat = load_one_hot('valid_one_hot_mat')
-all = 0
-right = 0
+predict_mat = []
+valid_mat = load_valid_mat()
 for valid_exam in valid_one_hot_mat:
-    all += 1
     neibour = get_distance(valid_exam, train_one_hot_mat)
     res = k_result(5, neibour)
-    if valid_exam['emotion'] == res:
-        right += 1
-        print('yes')
-    else:
-        print('fuck')
-print(right / all)
+    items = sorted(res.items(), key=lambda item: item[1])
+    predict_mat.append(list(res.values()))
+x = np.array(predict_mat)
+y = np.array(valid_mat).T
+print(np.cov(x, y) / np.sqrt(np.var(x) * np.var(y)))
