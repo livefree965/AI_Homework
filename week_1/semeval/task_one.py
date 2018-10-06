@@ -14,18 +14,18 @@ sentence_size = len(datas)
 word_appear_page = copy.deepcopy(unique_word)
 tf_mat = []
 for data in datas:
-    data_row = copy.deepcopy(unique_word)
+    data_row = copy.deepcopy(unique_word) # 每个列表要有自己的字典
     size = len(data)
-    word_appear = {}
+    word_appear = {} #记录句子中已经出现的单词
     for word in data:
-        if word not in word_appear.keys():
-            word_appear_page[word] += 1
+        if word not in word_appear.keys(): #如果句子中还没出现这个单词
+            word_appear_page[word] += 1 #单词出现的文章数加一
         word_appear[word] = 1
-        data_row[word] += 1 / size
-    tf_mat.append(data_row)
+        data_row[word] += 1 / size #句子对应的字典，出现一次根据TF矩阵加上相应的值
+    tf_mat.append(data_row) #将字典加入列表中，加入完毕则TF矩阵构造完成
 idf_mat = copy.deepcopy(unique_word)
 for word in idf_mat.keys():
-    idf_mat[word] = math.log(sentence_size / (1 + word_appear_page[word]))
+    idf_mat[word] = math.log(sentence_size / (1 + word_appear_page[word])) ##IDF矩阵构建的公式
 tfidf_mat = copy.deepcopy(tf_mat)
 for data in tfidf_mat:
     for word in data:

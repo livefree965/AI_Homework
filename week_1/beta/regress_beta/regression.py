@@ -7,18 +7,7 @@ import numpy as np
 unique_word = {}
 
 
-def save_one_hot(filename, data):
-    with open(filename, 'w') as f:
-        json.dump({'datas': data}, f)
-
-
-def load_one_hot(filename):
-    with open(filename) as f:
-        res = json.load(f)
-    return res['datas']
-
-
-def load_train():
+def load_train(filename):
     with open('train_set.csv') as f:
         datas = []
         f_csv = csv.DictReader(f)
@@ -99,9 +88,9 @@ def k_result(k, res):
     emotions_map = ['anger', 'disgust', 'fear', 'joy', 'sad', 'surprise']
     for i in range(k):
         for one_emo in range(6):
-            try: #每一种情绪都要处于自身的距离，这里跟公式是相符合的
+            try:  # 每一种情绪都要处于自身的距离，这里跟公式是相符合的
                 emotions[emotions_map[one_emo]] += res[i]['emotion'][one_emo] / res[i]['distance']
-            except: #出现了相同的句子，被除数不能为0应该直接采纳训练的数据
+            except:  # 出现了相同的句子，被除数不能为0应该直接采纳训练的数据
                 for one_emo in range(6):
                     emotions[emotions_map[one_emo]] = res[i]['emotion'][one_emo]
                 return emotions
@@ -129,7 +118,7 @@ for k in range(12, 21):
         items = sorted(res.items(), key=lambda item: item[1])
         predict_mat.append(list(res.values()))
     with open("res.csv", 'w') as f:
-        f_csv = csv.writer(f,lineterminator='\n')
+        f_csv = csv.writer(f, lineterminator='\n')
         f_csv.writerows(predict_mat)
     exit(0)
     # save_one_hot('x_mat',predict_mat)
