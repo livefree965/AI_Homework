@@ -9,6 +9,7 @@ class TreeNode:
         global Now_no
         self.No = str(Now_no)
         Now_no += 1
+        self.predict = None
         self.child = []
         self.parent = parent
 
