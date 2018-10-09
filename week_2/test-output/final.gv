@@ -1,0 +1,1030 @@
+// jiajia
+digraph {
+	3517 [label="Feature: feature5
+Data_Size: 1618
+Predict: 1"]
+	3518 [label="None low" shape=box]
+	3517 -> 3518 [label=low]
+	3518 [label="Data_Size: 535
+Predict: 0"]
+	3519 [label="feature3 med" shape=box]
+	3517 -> 3519 [label=med]
+	3519 [label="Feature: feature3
+Data_Size: 544
+Predict: 0"]
+	3520 [label="feature4 more" shape=box]
+	3519 -> 3520 [label=more]
+	3520 [label="Feature: feature4
+Data_Size: 178
+Predict: 1"]
+	3521 [label="feature0 small" shape=box]
+	3520 -> 3521 [label=small]
+	3521 [label="Feature: feature0
+Data_Size: 58
+Predict: 0"]
+	3522 [label="None high" shape=box]
+	3521 -> 3522 [label=high]
+	3522 [label="Data_Size: 15
+Predict: 0"]
+	3523 [label="None vhigh" shape=box]
+	3521 -> 3523 [label=vhigh]
+	3523 [label="Data_Size: 15
+Predict: 0"]
+	3524 [label="feature2 low" shape=box]
+	3521 -> 3524 [label=low]
+	3524 [label="Feature: feature2
+Data_Size: 14
+Predict: 1"]
+	3525 [label="feature1 5more" shape=box]
+	3524 -> 3525 [label="5more"]
+	3525 [label="Feature: feature1
+Data_Size: 4
+Predict: 0"]
+	3526 [label="None high" shape=box]
+	3525 -> 3526 [label=high]
+	3526 [label="Data_Size: 1
+Predict: 1"]
+	3527 [label="None low" shape=box]
+	3525 -> 3527 [label=low]
+	3527 [label="Data_Size: 1
+Predict: 1"]
+	3528 [label="None med" shape=box]
+	3525 -> 3528 [label=med]
+	3528 [label="Data_Size: 1
+Predict: 1"]
+	3529 [label="None vhigh" shape=box]
+	3525 -> 3529 [label=vhigh]
+	3529 [label="Data_Size: 1
+Predict: 0"]
+	3530 [label="None 2" shape=box]
+	3524 -> 3530 [label=2]
+	3530 [label="Data_Size: 4
+Predict: 0"]
+	3531 [label="None 4" shape=box]
+	3524 -> 3531 [label=4]
+	3531 [label="Data_Size: 2
+Predict: 1"]
+	3532 [label="feature1 3" shape=box]
+	3524 -> 3532 [label=3]
+	3532 [label="Feature: feature1
+Data_Size: 4
+Predict: 0"]
+	3533 [label="None high" shape=box]
+	3532 -> 3533 [label=high]
+	3533 [label="Data_Size: 1
+Predict: 1"]
+	3534 [label="None low" shape=box]
+	3532 -> 3534 [label=low]
+	3534 [label="Data_Size: 1
+Predict: 1"]
+	3535 [label="None med" shape=box]
+	3532 -> 3535 [label=med]
+	3535 [label="Data_Size: 1
+Predict: 1"]
+	3536 [label="None vhigh" shape=box]
+	3532 -> 3536 [label=vhigh]
+	3536 [label="Data_Size: 1
+Predict: 0"]
+	3537 [label="feature1 med" shape=box]
+	3521 -> 3537 [label=med]
+	3537 [label="Feature: feature1
+Data_Size: 14
+Predict: 0"]
+	3538 [label="None high" shape=box]
+	3537 -> 3538 [label=high]
+	3538 [label="Data_Size: 3
+Predict: 0"]
+	3539 [label="feature2 low" shape=box]
+	3537 -> 3539 [label=low]
+	3539 [label="Feature: feature2
+Data_Size: 4
+Predict: 1"]
+	3540 [label="None 5more" shape=box]
+	3539 -> 3540 [label="5more"]
+	3540 [label="Data_Size: 1
+Predict: 1"]
+	3541 [label="None 2" shape=box]
+	3539 -> 3541 [label=2]
+	3541 [label="Data_Size: 1
+Predict: 0"]
+	3542 [label="None 4" shape=box]
+	3539 -> 3542 [label=4]
+	3542 [label="Data_Size: 1
+Predict: 1"]
+	3543 [label="None 3" shape=box]
+	3539 -> 3543 [label=3]
+	3543 [label="Data_Size: 1
+Predict: 1"]
+	3544 [label="feature2 med" shape=box]
+	3537 -> 3544 [label=med]
+	3544 [label="Feature: feature2
+Data_Size: 4
+Predict: 1"]
+	3545 [label="None 5more" shape=box]
+	3544 -> 3545 [label="5more"]
+	3545 [label="Data_Size: 1
+Predict: 1"]
+	3546 [label="None 2" shape=box]
+	3544 -> 3546 [label=2]
+	3546 [label="Data_Size: 1
+Predict: 0"]
+	3547 [label="None 4" shape=box]
+	3544 -> 3547 [label=4]
+	3547 [label="Data_Size: 1
+Predict: 1"]
+	3548 [label="None 3" shape=box]
+	3544 -> 3548 [label=3]
+	3548 [label="Data_Size: 1
+Predict: 1"]
+	3549 [label="None vhigh" shape=box]
+	3537 -> 3549 [label=vhigh]
+	3549 [label="Data_Size: 3
+Predict: 0"]
+	3550 [label="feature0 med" shape=box]
+	3520 -> 3550 [label=med]
+	3550 [label="Feature: feature0
+Data_Size: 62
+Predict: 1"]
+	3551 [label="feature1 high" shape=box]
+	3550 -> 3551 [label=high]
+	3551 [label="Feature: feature1
+Data_Size: 16
+Predict: 0"]
+	3552 [label="feature2 high" shape=box]
+	3551 -> 3552 [label=high]
+	3552 [label="Feature: feature2
+Data_Size: 4
+Predict: 1"]
+	3553 [label="None 5more" shape=box]
+	3552 -> 3553 [label="5more"]
+	3553 [label="Data_Size: 1
+Predict: 1"]
+	3554 [label="None 2" shape=box]
+	3552 -> 3554 [label=2]
+	3554 [label="Data_Size: 1
+Predict: 0"]
+	3555 [label="None 4" shape=box]
+	3552 -> 3555 [label=4]
+	3555 [label="Data_Size: 1
+Predict: 1"]
+	3556 [label="None 3" shape=box]
+	3552 -> 3556 [label=3]
+	3556 [label="Data_Size: 1
+Predict: 1"]
+	3557 [label="feature2 low" shape=box]
+	3551 -> 3557 [label=low]
+	3557 [label="Feature: feature2
+Data_Size: 4
+Predict: 1"]
+	3558 [label="None 5more" shape=box]
+	3557 -> 3558 [label="5more"]
+	3558 [label="Data_Size: 1
+Predict: 1"]
+	3559 [label="None 2" shape=box]
+	3557 -> 3559 [label=2]
+	3559 [label="Data_Size: 1
+Predict: 0"]
+	3560 [label="None 4" shape=box]
+	3557 -> 3560 [label=4]
+	3560 [label="Data_Size: 1
+Predict: 1"]
+	3561 [label="None 3" shape=box]
+	3557 -> 3561 [label=3]
+	3561 [label="Data_Size: 1
+Predict: 1"]
+	3562 [label="feature2 med" shape=box]
+	3551 -> 3562 [label=med]
+	3562 [label="Feature: feature2
+Data_Size: 4
+Predict: 1"]
+	3563 [label="None 5more" shape=box]
+	3562 -> 3563 [label="5more"]
+	3563 [label="Data_Size: 1
+Predict: 1"]
+	3564 [label="None 2" shape=box]
+	3562 -> 3564 [label=2]
+	3564 [label="Data_Size: 1
+Predict: 0"]
+	3565 [label="None 4" shape=box]
+	3562 -> 3565 [label=4]
+	3565 [label="Data_Size: 1
+Predict: 1"]
+	3566 [label="None 3" shape=box]
+	3562 -> 3566 [label=3]
+	3566 [label="Data_Size: 1
+Predict: 1"]
+	3567 [label="None vhigh" shape=box]
+	3551 -> 3567 [label=vhigh]
+	3567 [label="Data_Size: 4
+Predict: 0"]
+	3568 [label="feature1 vhigh" shape=box]
+	3550 -> 3568 [label=vhigh]
+	3568 [label="Feature: feature1
+Data_Size: 15
+Predict: 0"]
+	3569 [label="None high" shape=box]
+	3568 -> 3569 [label=high]
+	3569 [label="Data_Size: 4
+Predict: 0"]
+	3570 [label="feature2 low" shape=box]
+	3568 -> 3570 [label=low]
+	3570 [label="Feature: feature2
+Data_Size: 4
+Predict: 1"]
+	3571 [label="None 5more" shape=box]
+	3570 -> 3571 [label="5more"]
+	3571 [label="Data_Size: 1
+Predict: 1"]
+	3572 [label="None 2" shape=box]
+	3570 -> 3572 [label=2]
+	3572 [label="Data_Size: 1
+Predict: 0"]
+	3573 [label="None 4" shape=box]
+	3570 -> 3573 [label=4]
+	3573 [label="Data_Size: 1
+Predict: 1"]
+	3574 [label="None 3" shape=box]
+	3570 -> 3574 [label=3]
+	3574 [label="Data_Size: 1
+Predict: 1"]
+	3575 [label="feature2 med" shape=box]
+	3568 -> 3575 [label=med]
+	3575 [label="Feature: feature2
+Data_Size: 3
+Predict: 1"]
+	3576 [label="None 5more" shape=box]
+	3575 -> 3576 [label="5more"]
+	3576 [label="Data_Size: 1
+Predict: 1"]
+	3577 [label="None 2" shape=box]
+	3575 -> 3577 [label=2]
+	3577 [label="Data_Size: 1
+Predict: 0"]
+	3579 [label="None 3" shape=box]
+	3575 -> 3579 [label=3]
+	3579 [label="Data_Size: 1
+Predict: 1"]
+	3580 [label="None vhigh" shape=box]
+	3568 -> 3580 [label=vhigh]
+	3580 [label="Data_Size: 4
+Predict: 0"]
+	3581 [label="feature1 low" shape=box]
+	3550 -> 3581 [label=low]
+	3581 [label="Feature: feature1
+Data_Size: 16
+Predict: 1"]
+	3582 [label="None high" shape=box]
+	3581 -> 3582 [label=high]
+	3582 [label="Data_Size: 4
+Predict: 1"]
+	3583 [label="None low" shape=box]
+	3581 -> 3583 [label=low]
+	3583 [label="Data_Size: 4
+Predict: 1"]
+	3584 [label="None med" shape=box]
+	3581 -> 3584 [label=med]
+	3584 [label="Data_Size: 4
+Predict: 1"]
+	3585 [label="feature2 vhigh" shape=box]
+	3581 -> 3585 [label=vhigh]
+	3585 [label="Feature: feature2
+Data_Size: 4
+Predict: 1"]
+	3586 [label="None 5more" shape=box]
+	3585 -> 3586 [label="5more"]
+	3586 [label="Data_Size: 1
+Predict: 1"]
+	3587 [label="None 2" shape=box]
+	3585 -> 3587 [label=2]
+	3587 [label="Data_Size: 1
+Predict: 0"]
+	3588 [label="None 4" shape=box]
+	3585 -> 3588 [label=4]
+	3588 [label="Data_Size: 1
+Predict: 1"]
+	3589 [label="None 3" shape=box]
+	3585 -> 3589 [label=3]
+	3589 [label="Data_Size: 1
+Predict: 1"]
+	3590 [label="feature2 med" shape=box]
+	3550 -> 3590 [label=med]
+	3590 [label="Feature: feature2
+Data_Size: 15
+Predict: 1"]
+	3591 [label="None 5more" shape=box]
+	3590 -> 3591 [label="5more"]
+	3591 [label="Data_Size: 4
+Predict: 1"]
+	3592 [label="feature1 2" shape=box]
+	3590 -> 3592 [label=2]
+	3592 [label="Feature: feature1
+Data_Size: 3
+Predict: 0"]
+	3593 [label="None high" shape=box]
+	3592 -> 3593 [label=high]
+	3593 [label="Data_Size: 1
+Predict: 0"]
+	3594 [label="None low" shape=box]
+	3592 -> 3594 [label=low]
+	3594 [label="Data_Size: 1
+Predict: 1"]
+	3596 [label="None vhigh" shape=box]
+	3592 -> 3596 [label=vhigh]
+	3596 [label="Data_Size: 1
+Predict: 0"]
+	3597 [label="None 4" shape=box]
+	3590 -> 3597 [label=4]
+	3597 [label="Data_Size: 4
+Predict: 1"]
+	3598 [label="None 3" shape=box]
+	3590 -> 3598 [label=3]
+	3598 [label="Data_Size: 4
+Predict: 1"]
+	3599 [label="feature1 big" shape=box]
+	3520 -> 3599 [label=big]
+	3599 [label="Feature: feature1
+Data_Size: 58
+Predict: 0"]
+	3600 [label="feature0 high" shape=box]
+	3599 -> 3600 [label=high]
+	3600 [label="Feature: feature0
+Data_Size: 12
+Predict: 1"]
+	3601 [label="None high" shape=box]
+	3600 -> 3601 [label=high]
+	3601 [label="Data_Size: 4
+Predict: 1"]
+	3602 [label="None vhigh" shape=box]
+	3600 -> 3602 [label=vhigh]
+	3602 [label="Data_Size: 2
+Predict: 0"]
+	3603 [label="None low" shape=box]
+	3600 -> 3603 [label=low]
+	3603 [label="Data_Size: 3
+Predict: 1"]
+	3604 [label="None med" shape=box]
+	3600 -> 3604 [label=med]
+	3604 [label="Data_Size: 3
+Predict: 1"]
+	3605 [label="None low" shape=box]
+	3599 -> 3605 [label=low]
+	3605 [label="Data_Size: 15
+Predict: 1"]
+	3606 [label="None med" shape=box]
+	3599 -> 3606 [label=med]
+	3606 [label="Data_Size: 15
+Predict: 1"]
+	3607 [label="feature0 vhigh" shape=box]
+	3599 -> 3607 [label=vhigh]
+	3607 [label="Feature: feature0
+Data_Size: 16
+Predict: 1"]
+	3608 [label="None high" shape=box]
+	3607 -> 3608 [label=high]
+	3608 [label="Data_Size: 4
+Predict: 0"]
+	3609 [label="None vhigh" shape=box]
+	3607 -> 3609 [label=vhigh]
+	3609 [label="Data_Size: 4
+Predict: 0"]
+	3610 [label="None low" shape=box]
+	3607 -> 3610 [label=low]
+	3610 [label="Data_Size: 4
+Predict: 1"]
+	3611 [label="None med" shape=box]
+	3607 -> 3611 [label=med]
+	3611 [label="Data_Size: 4
+Predict: 1"]
+	3612 [label="feature0 4" shape=box]
+	3519 -> 3612 [label=4]
+	3612 [label="Feature: feature0
+Data_Size: 183
+Predict: 1"]
+	3613 [label="feature4 high" shape=box]
+	3612 -> 3613 [label=high]
+	3613 [label="Feature: feature4
+Data_Size: 44
+Predict: 1"]
+	3614 [label="None small" shape=box]
+	3613 -> 3614 [label=small]
+	3614 [label="Data_Size: 14
+Predict: 0"]
+	3615 [label="feature2 med" shape=box]
+	3613 -> 3615 [label=med]
+	3615 [label="Feature: feature2
+Data_Size: 14
+Predict: 0"]
+	3616 [label="feature1 5more" shape=box]
+	3615 -> 3616 [label="5more"]
+	3616 [label="Feature: feature1
+Data_Size: 3
+Predict: 0"]
+	3617 [label="None high" shape=box]
+	3616 -> 3617 [label=high]
+	3617 [label="Data_Size: 1
+Predict: 1"]
+	3619 [label="None med" shape=box]
+	3616 -> 3619 [label=med]
+	3619 [label="Data_Size: 1
+Predict: 1"]
+	3620 [label="None vhigh" shape=box]
+	3616 -> 3620 [label=vhigh]
+	3620 [label="Data_Size: 1
+Predict: 0"]
+	3621 [label="None 2" shape=box]
+	3615 -> 3621 [label=2]
+	3621 [label="Data_Size: 4
+Predict: 0"]
+	3622 [label="feature1 4" shape=box]
+	3615 -> 3622 [label=4]
+	3622 [label="Feature: feature1
+Data_Size: 4
+Predict: 0"]
+	3623 [label="None high" shape=box]
+	3622 -> 3623 [label=high]
+	3623 [label="Data_Size: 1
+Predict: 1"]
+	3624 [label="None low" shape=box]
+	3622 -> 3624 [label=low]
+	3624 [label="Data_Size: 1
+Predict: 1"]
+	3625 [label="None med" shape=box]
+	3622 -> 3625 [label=med]
+	3625 [label="Data_Size: 1
+Predict: 1"]
+	3626 [label="None vhigh" shape=box]
+	3622 -> 3626 [label=vhigh]
+	3626 [label="Data_Size: 1
+Predict: 0"]
+	3627 [label="None 3" shape=box]
+	3615 -> 3627 [label=3]
+	3627 [label="Data_Size: 3
+Predict: 0"]
+	3628 [label="feature1 big" shape=box]
+	3613 -> 3628 [label=big]
+	3628 [label="Feature: feature1
+Data_Size: 16
+Predict: 0"]
+	3629 [label="None high" shape=box]
+	3628 -> 3629 [label=high]
+	3629 [label="Data_Size: 4
+Predict: 1"]
+	3630 [label="None low" shape=box]
+	3628 -> 3630 [label=low]
+	3630 [label="Data_Size: 4
+Predict: 1"]
+	3631 [label="None med" shape=box]
+	3628 -> 3631 [label=med]
+	3631 [label="Data_Size: 4
+Predict: 1"]
+	3632 [label="None vhigh" shape=box]
+	3628 -> 3632 [label=vhigh]
+	3632 [label="Data_Size: 4
+Predict: 0"]
+	3633 [label="feature1 vhigh" shape=box]
+	3612 -> 3633 [label=vhigh]
+	3633 [label="Feature: feature1
+Data_Size: 46
+Predict: 0"]
+	3634 [label="None high" shape=box]
+	3633 -> 3634 [label=high]
+	3634 [label="Data_Size: 12
+Predict: 0"]
+	3635 [label="feature4 low" shape=box]
+	3633 -> 3635 [label=low]
+	3635 [label="Feature: feature4
+Data_Size: 11
+Predict: 1"]
+	3636 [label="None small" shape=box]
+	3635 -> 3636 [label=small]
+	3636 [label="Data_Size: 4
+Predict: 0"]
+	3637 [label="feature2 med" shape=box]
+	3635 -> 3637 [label=med]
+	3637 [label="Feature: feature2
+Data_Size: 4
+Predict: 0"]
+	3638 [label="None 5more" shape=box]
+	3637 -> 3638 [label="5more"]
+	3638 [label="Data_Size: 1
+Predict: 1"]
+	3639 [label="None 2" shape=box]
+	3637 -> 3639 [label=2]
+	3639 [label="Data_Size: 1
+Predict: 0"]
+	3640 [label="None 4" shape=box]
+	3637 -> 3640 [label=4]
+	3640 [label="Data_Size: 1
+Predict: 1"]
+	3641 [label="None 3" shape=box]
+	3637 -> 3641 [label=3]
+	3641 [label="Data_Size: 1
+Predict: 0"]
+	3642 [label="None big" shape=box]
+	3635 -> 3642 [label=big]
+	3642 [label="Data_Size: 3
+Predict: 1"]
+	3643 [label="feature4 med" shape=box]
+	3633 -> 3643 [label=med]
+	3643 [label="Feature: feature4
+Data_Size: 12
+Predict: 1"]
+	3644 [label="None small" shape=box]
+	3643 -> 3644 [label=small]
+	3644 [label="Data_Size: 4
+Predict: 0"]
+	3645 [label="feature2 med" shape=box]
+	3643 -> 3645 [label=med]
+	3645 [label="Feature: feature2
+Data_Size: 4
+Predict: 0"]
+	3646 [label="None 5more" shape=box]
+	3645 -> 3646 [label="5more"]
+	3646 [label="Data_Size: 1
+Predict: 1"]
+	3647 [label="None 2" shape=box]
+	3645 -> 3647 [label=2]
+	3647 [label="Data_Size: 1
+Predict: 0"]
+	3648 [label="None 4" shape=box]
+	3645 -> 3648 [label=4]
+	3648 [label="Data_Size: 1
+Predict: 1"]
+	3649 [label="None 3" shape=box]
+	3645 -> 3649 [label=3]
+	3649 [label="Data_Size: 1
+Predict: 0"]
+	3650 [label="None big" shape=box]
+	3643 -> 3650 [label=big]
+	3650 [label="Data_Size: 4
+Predict: 1"]
+	3651 [label="None vhigh" shape=box]
+	3633 -> 3651 [label=vhigh]
+	3651 [label="Data_Size: 11
+Predict: 0"]
+	3652 [label="feature1 low" shape=box]
+	3612 -> 3652 [label=low]
+	3652 [label="Feature: feature1
+Data_Size: 45
+Predict: 0"]
+	3653 [label="None high" shape=box]
+	3652 -> 3653 [label=high]
+	3653 [label="Data_Size: 10
+Predict: 1"]
+	3654 [label="None low" shape=box]
+	3652 -> 3654 [label=low]
+	3654 [label="Data_Size: 12
+Predict: 1"]
+	3655 [label="None med" shape=box]
+	3652 -> 3655 [label=med]
+	3655 [label="Data_Size: 11
+Predict: 1"]
+	3656 [label="feature4 vhigh" shape=box]
+	3652 -> 3656 [label=vhigh]
+	3656 [label="Feature: feature4
+Data_Size: 12
+Predict: 1"]
+	3657 [label="None small" shape=box]
+	3656 -> 3657 [label=small]
+	3657 [label="Data_Size: 4
+Predict: 0"]
+	3658 [label="feature2 med" shape=box]
+	3656 -> 3658 [label=med]
+	3658 [label="Feature: feature2
+Data_Size: 4
+Predict: 0"]
+	3659 [label="None 5more" shape=box]
+	3658 -> 3659 [label="5more"]
+	3659 [label="Data_Size: 1
+Predict: 1"]
+	3660 [label="None 2" shape=box]
+	3658 -> 3660 [label=2]
+	3660 [label="Data_Size: 1
+Predict: 0"]
+	3661 [label="None 4" shape=box]
+	3658 -> 3661 [label=4]
+	3661 [label="Data_Size: 1
+Predict: 1"]
+	3662 [label="None 3" shape=box]
+	3658 -> 3662 [label=3]
+	3662 [label="Data_Size: 1
+Predict: 0"]
+	3663 [label="None big" shape=box]
+	3656 -> 3663 [label=big]
+	3663 [label="Data_Size: 4
+Predict: 1"]
+	3664 [label="feature1 med" shape=box]
+	3612 -> 3664 [label=med]
+	3664 [label="Feature: feature1
+Data_Size: 48
+Predict: 0"]
+	3665 [label="feature4 high" shape=box]
+	3664 -> 3665 [label=high]
+	3665 [label="Feature: feature4
+Data_Size: 12
+Predict: 1"]
+	3666 [label="None small" shape=box]
+	3665 -> 3666 [label=small]
+	3666 [label="Data_Size: 4
+Predict: 0"]
+	3667 [label="feature2 med" shape=box]
+	3665 -> 3667 [label=med]
+	3667 [label="Feature: feature2
+Data_Size: 4
+Predict: 0"]
+	3668 [label="None 5more" shape=box]
+	3667 -> 3668 [label="5more"]
+	3668 [label="Data_Size: 1
+Predict: 1"]
+	3669 [label="None 2" shape=box]
+	3667 -> 3669 [label=2]
+	3669 [label="Data_Size: 1
+Predict: 0"]
+	3670 [label="None 4" shape=box]
+	3667 -> 3670 [label=4]
+	3670 [label="Data_Size: 1
+Predict: 1"]
+	3671 [label="None 3" shape=box]
+	3667 -> 3671 [label=3]
+	3671 [label="Data_Size: 1
+Predict: 0"]
+	3672 [label="None big" shape=box]
+	3665 -> 3672 [label=big]
+	3672 [label="Data_Size: 4
+Predict: 1"]
+	3673 [label="None low" shape=box]
+	3664 -> 3673 [label=low]
+	3673 [label="Data_Size: 12
+Predict: 1"]
+	3674 [label="None med" shape=box]
+	3664 -> 3674 [label=med]
+	3674 [label="Data_Size: 12
+Predict: 1"]
+	3675 [label="feature4 vhigh" shape=box]
+	3664 -> 3675 [label=vhigh]
+	3675 [label="Feature: feature4
+Data_Size: 12
+Predict: 1"]
+	3676 [label="None small" shape=box]
+	3675 -> 3676 [label=small]
+	3676 [label="Data_Size: 4
+Predict: 0"]
+	3677 [label="feature2 med" shape=box]
+	3675 -> 3677 [label=med]
+	3677 [label="Feature: feature2
+Data_Size: 4
+Predict: 0"]
+	3678 [label="None 5more" shape=box]
+	3677 -> 3678 [label="5more"]
+	3678 [label="Data_Size: 1
+Predict: 1"]
+	3679 [label="None 2" shape=box]
+	3677 -> 3679 [label=2]
+	3679 [label="Data_Size: 1
+Predict: 0"]
+	3680 [label="None 4" shape=box]
+	3677 -> 3680 [label=4]
+	3680 [label="Data_Size: 1
+Predict: 1"]
+	3681 [label="None 3" shape=box]
+	3677 -> 3681 [label=3]
+	3681 [label="Data_Size: 1
+Predict: 0"]
+	3682 [label="None big" shape=box]
+	3675 -> 3682 [label=big]
+	3682 [label="Data_Size: 4
+Predict: 1"]
+	3683 [label="None 2" shape=box]
+	3519 -> 3683 [label=2]
+	3683 [label="Data_Size: 183
+Predict: 0"]
+	3684 [label="feature3 high" shape=box]
+	3517 -> 3684 [label=high]
+	3684 [label="Feature: feature3
+Data_Size: 539
+Predict: 0"]
+	3685 [label="feature0 more" shape=box]
+	3684 -> 3685 [label=more]
+	3685 [label="Feature: feature0
+Data_Size: 180
+Predict: 1"]
+	3686 [label="feature1 high" shape=box]
+	3685 -> 3686 [label=high]
+	3686 [label="Feature: feature1
+Data_Size: 44
+Predict: 0"]
+	3687 [label="feature2 high" shape=box]
+	3686 -> 3687 [label=high]
+	3687 [label="Feature: feature2
+Data_Size: 11
+Predict: 1"]
+	3688 [label="None 5more" shape=box]
+	3687 -> 3688 [label="5more"]
+	3688 [label="Data_Size: 3
+Predict: 1"]
+	3689 [label="feature4 2" shape=box]
+	3687 -> 3689 [label=2]
+	3689 [label="Feature: feature4
+Data_Size: 3
+Predict: 1"]
+	3690 [label="None small" shape=box]
+	3689 -> 3690 [label=small]
+	3690 [label="Data_Size: 1
+Predict: 0"]
+	3691 [label="None med" shape=box]
+	3689 -> 3691 [label=med]
+	3691 [label="Data_Size: 1
+Predict: 1"]
+	3692 [label="None big" shape=box]
+	3689 -> 3692 [label=big]
+	3692 [label="Data_Size: 1
+Predict: 1"]
+	3693 [label="None 4" shape=box]
+	3687 -> 3693 [label=4]
+	3693 [label="Data_Size: 2
+Predict: 1"]
+	3694 [label="None 3" shape=box]
+	3687 -> 3694 [label=3]
+	3694 [label="Data_Size: 3
+Predict: 1"]
+	3695 [label="feature2 low" shape=box]
+	3686 -> 3695 [label=low]
+	3695 [label="Feature: feature2
+Data_Size: 11
+Predict: 1"]
+	3696 [label="None 5more" shape=box]
+	3695 -> 3696 [label="5more"]
+	3696 [label="Data_Size: 3
+Predict: 1"]
+	3697 [label="feature4 2" shape=box]
+	3695 -> 3697 [label=2]
+	3697 [label="Feature: feature4
+Data_Size: 3
+Predict: 1"]
+	3698 [label="None small" shape=box]
+	3697 -> 3698 [label=small]
+	3698 [label="Data_Size: 1
+Predict: 0"]
+	3699 [label="None med" shape=box]
+	3697 -> 3699 [label=med]
+	3699 [label="Data_Size: 1
+Predict: 1"]
+	3700 [label="None big" shape=box]
+	3697 -> 3700 [label=big]
+	3700 [label="Data_Size: 1
+Predict: 1"]
+	3701 [label="None 4" shape=box]
+	3695 -> 3701 [label=4]
+	3701 [label="Data_Size: 3
+Predict: 1"]
+	3702 [label="None 3" shape=box]
+	3695 -> 3702 [label=3]
+	3702 [label="Data_Size: 2
+Predict: 1"]
+	3703 [label="feature2 med" shape=box]
+	3686 -> 3703 [label=med]
+	3703 [label="Feature: feature2
+Data_Size: 12
+Predict: 1"]
+	3704 [label="None 5more" shape=box]
+	3703 -> 3704 [label="5more"]
+	3704 [label="Data_Size: 3
+Predict: 1"]
+	3705 [label="feature4 2" shape=box]
+	3703 -> 3705 [label=2]
+	3705 [label="Feature: feature4
+Data_Size: 3
+Predict: 1"]
+	3706 [label="None small" shape=box]
+	3705 -> 3706 [label=small]
+	3706 [label="Data_Size: 1
+Predict: 0"]
+	3707 [label="None med" shape=box]
+	3705 -> 3707 [label=med]
+	3707 [label="Data_Size: 1
+Predict: 1"]
+	3708 [label="None big" shape=box]
+	3705 -> 3708 [label=big]
+	3708 [label="Data_Size: 1
+Predict: 1"]
+	3709 [label="None 4" shape=box]
+	3703 -> 3709 [label=4]
+	3709 [label="Data_Size: 3
+Predict: 1"]
+	3710 [label="None 3" shape=box]
+	3703 -> 3710 [label=3]
+	3710 [label="Data_Size: 3
+Predict: 1"]
+	3711 [label="None vhigh" shape=box]
+	3686 -> 3711 [label=vhigh]
+	3711 [label="Data_Size: 10
+Predict: 0"]
+	3712 [label="feature1 vhigh" shape=box]
+	3685 -> 3712 [label=vhigh]
+	3712 [label="Feature: feature1
+Data_Size: 45
+Predict: 0"]
+	3713 [label="None high" shape=box]
+	3712 -> 3713 [label=high]
+	3713 [label="Data_Size: 12
+Predict: 0"]
+	3714 [label="feature2 low" shape=box]
+	3712 -> 3714 [label=low]
+	3714 [label="Feature: feature2
+Data_Size: 11
+Predict: 1"]
+	3715 [label="None 5more" shape=box]
+	3714 -> 3715 [label="5more"]
+	3715 [label="Data_Size: 3
+Predict: 1"]
+	3716 [label="feature4 2" shape=box]
+	3714 -> 3716 [label=2]
+	3716 [label="Feature: feature4
+Data_Size: 3
+Predict: 1"]
+	3717 [label="None small" shape=box]
+	3716 -> 3717 [label=small]
+	3717 [label="Data_Size: 1
+Predict: 0"]
+	3718 [label="None med" shape=box]
+	3716 -> 3718 [label=med]
+	3718 [label="Data_Size: 1
+Predict: 1"]
+	3719 [label="None big" shape=box]
+	3716 -> 3719 [label=big]
+	3719 [label="Data_Size: 1
+Predict: 1"]
+	3720 [label="None 4" shape=box]
+	3714 -> 3720 [label=4]
+	3720 [label="Data_Size: 2
+Predict: 1"]
+	3721 [label="None 3" shape=box]
+	3714 -> 3721 [label=3]
+	3721 [label="Data_Size: 3
+Predict: 1"]
+	3722 [label="feature2 med" shape=box]
+	3712 -> 3722 [label=med]
+	3722 [label="Feature: feature2
+Data_Size: 12
+Predict: 1"]
+	3723 [label="None 5more" shape=box]
+	3722 -> 3723 [label="5more"]
+	3723 [label="Data_Size: 3
+Predict: 1"]
+	3724 [label="feature4 2" shape=box]
+	3722 -> 3724 [label=2]
+	3724 [label="Feature: feature4
+Data_Size: 3
+Predict: 1"]
+	3725 [label="None small" shape=box]
+	3724 -> 3725 [label=small]
+	3725 [label="Data_Size: 1
+Predict: 0"]
+	3726 [label="None med" shape=box]
+	3724 -> 3726 [label=med]
+	3726 [label="Data_Size: 1
+Predict: 1"]
+	3727 [label="None big" shape=box]
+	3724 -> 3727 [label=big]
+	3727 [label="Data_Size: 1
+Predict: 1"]
+	3728 [label="None 4" shape=box]
+	3722 -> 3728 [label=4]
+	3728 [label="Data_Size: 3
+Predict: 1"]
+	3729 [label="None 3" shape=box]
+	3722 -> 3729 [label=3]
+	3729 [label="Data_Size: 3
+Predict: 1"]
+	3730 [label="None vhigh" shape=box]
+	3712 -> 3730 [label=vhigh]
+	3730 [label="Data_Size: 10
+Predict: 0"]
+	3731 [label="feature2 low" shape=box]
+	3685 -> 3731 [label=low]
+	3731 [label="Feature: feature2
+Data_Size: 46
+Predict: 1"]
+	3732 [label="None 5more" shape=box]
+	3731 -> 3732 [label="5more"]
+	3732 [label="Data_Size: 11
+Predict: 1"]
+	3733 [label="feature4 2" shape=box]
+	3731 -> 3733 [label=2]
+	3733 [label="Feature: feature4
+Data_Size: 12
+Predict: 1"]
+	3734 [label="None small" shape=box]
+	3733 -> 3734 [label=small]
+	3734 [label="Data_Size: 4
+Predict: 0"]
+	3735 [label="None med" shape=box]
+	3733 -> 3735 [label=med]
+	3735 [label="Data_Size: 4
+Predict: 1"]
+	3736 [label="None big" shape=box]
+	3733 -> 3736 [label=big]
+	3736 [label="Data_Size: 4
+Predict: 1"]
+	3737 [label="None 4" shape=box]
+	3731 -> 3737 [label=4]
+	3737 [label="Data_Size: 12
+Predict: 1"]
+	3738 [label="None 3" shape=box]
+	3731 -> 3738 [label=3]
+	3738 [label="Data_Size: 11
+Predict: 1"]
+	3739 [label="feature2 med" shape=box]
+	3685 -> 3739 [label=med]
+	3739 [label="Feature: feature2
+Data_Size: 45
+Predict: 1"]
+	3740 [label="None 5more" shape=box]
+	3739 -> 3740 [label="5more"]
+	3740 [label="Data_Size: 12
+Predict: 1"]
+	3741 [label="feature4 2" shape=box]
+	3739 -> 3741 [label=2]
+	3741 [label="Feature: feature4
+Data_Size: 11
+Predict: 1"]
+	3742 [label="None small" shape=box]
+	3741 -> 3742 [label=small]
+	3742 [label="Data_Size: 4
+Predict: 0"]
+	3743 [label="None med" shape=box]
+	3741 -> 3743 [label=med]
+	3743 [label="Data_Size: 4
+Predict: 1"]
+	3744 [label="None big" shape=box]
+	3741 -> 3744 [label=big]
+	3744 [label="Data_Size: 3
+Predict: 1"]
+	3745 [label="None 4" shape=box]
+	3739 -> 3745 [label=4]
+	3745 [label="Data_Size: 11
+Predict: 1"]
+	3746 [label="None 3" shape=box]
+	3739 -> 3746 [label=3]
+	3746 [label="Data_Size: 11
+Predict: 1"]
+	3747 [label="feature1 4" shape=box]
+	3684 -> 3747 [label=4]
+	3747 [label="Feature: feature1
+Data_Size: 181
+Predict: 1"]
+	3748 [label="feature0 high" shape=box]
+	3747 -> 3748 [label=high]
+	3748 [label="Feature: feature0
+Data_Size: 44
+Predict: 1"]
+	3749 [label="None high" shape=box]
+	3748 -> 3749 [label=high]
+	3749 [label="Data_Size: 10
+Predict: 1"]
+	3750 [label="None vhigh" shape=box]
+	3748 -> 3750 [label=vhigh]
+	3750 [label="Data_Size: 10
+Predict: 0"]
+	3751 [label="None low" shape=box]
+	3748 -> 3751 [label=low]
+	3751 [label="Data_Size: 12
+Predict: 1"]
+	3752 [label="None med" shape=box]
+	3748 -> 3752 [label=med]
+	3752 [label="Data_Size: 12
+Predict: 1"]
+	3753 [label="None low" shape=box]
+	3747 -> 3753 [label=low]
+	3753 [label="Data_Size: 45
+Predict: 1"]
+	3754 [label="None med" shape=box]
+	3747 -> 3754 [label=med]
+	3754 [label="Data_Size: 45
+Predict: 1"]
+	3755 [label="feature0 vhigh" shape=box]
+	3747 -> 3755 [label=vhigh]
+	3755 [label="Feature: feature0
+Data_Size: 47
+Predict: 1"]
+	3756 [label="None high" shape=box]
+	3755 -> 3756 [label=high]
+	3756 [label="Data_Size: 11
+Predict: 0"]
+	3757 [label="None vhigh" shape=box]
+	3755 -> 3757 [label=vhigh]
+	3757 [label="Data_Size: 12
+Predict: 0"]
+	3758 [label="None low" shape=box]
+	3755 -> 3758 [label=low]
+	3758 [label="Data_Size: 12
+Predict: 1"]
+	3759 [label="None med" shape=box]
+	3755 -> 3759 [label=med]
+	3759 [label="Data_Size: 12
+Predict: 1"]
+	3760 [label="None 2" shape=box]
+	3684 -> 3760 [label=2]
+	3760 [label="Data_Size: 178
+Predict: 0"]
+}
