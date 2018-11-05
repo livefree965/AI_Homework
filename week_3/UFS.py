@@ -1,5 +1,7 @@
 import copy
 
+record_nodes = []
+
 
 class Node:
     def __init__(self, state, pre_node, path_cost):
@@ -106,7 +108,45 @@ def uniform_cost_search():
                     res[1].pre_node = child.pre_node
 
 
+def BFS():
+    maze_data = read_maze('MazeData.txt')
+    node = Node(maze_data[1], None, 0)
+    goal_node = Node(maze_data[2], None, 0)
+    maze_data = maze_data[0]
+    frontier = [node]
+    explored = []
+    while True:
+        if len(frontier) == 0:
+            break
+        now_node = frontier[0]
+        frontier.pop(0)
+        global record_nodes
+        record_nodes.append(now_node)
+        if now_node.state == goal_node.state:
+            return now_node
+        explored.append(now_node.state)
+        for action in [[0, 1], [0, -1], [1, 0], [-1, 0]]:
+            new_pos = [now_node.state[0] + action[0], now_node.state[1] + action[1]]
+            if maze_data[new_pos[0]][new_pos[1]] == '1':
+                continue
+            child = Node(new_pos, now_node, now_node.path_cost + 1)
+            if child.state not in explored:
+                frontier.append(child)
+    return False
+
+
+def gener_mat(src: list):
+    obj_list = [0] * 36
+    obj_lists = []
+    for i in range(18):
+        obj_lists.append(copy.deepcopy(obj_list))
+    for node in src:
+        obj_lists[node.state[0]][node.state[1]] = node.path_cost
+    return obj_lists
+
+
 if __name__ == "__main__":
     # final_node = uniform_cost_search()
-    final_node = iterative_deepen_search()
+    # final_node = iterative_deepen_search()
+    final_node = BFS()
     print_path(final_node)
