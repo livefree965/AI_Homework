@@ -142,34 +142,6 @@ def uniform_cost_search():
         max_frontier_size = max(len(frontier), max_frontier_size)
 
 
-def BFS():
-    maze_data = read_maze('MazeData.txt')
-    node = Node(maze_data[1], None, 0)
-    goal_node = Node(maze_data[2], None, 0)
-    maze_data = maze_data[0]
-    frontier = [node]  # 边缘节点
-    explored = []  # 已探索节点
-    while True:
-        global max_frontier_size, max_explored_size
-        if len(frontier) == 0:  # 如果没有边缘节点，则说明没有解
-            break
-        now_node = frontier[0]  # 弹出节点
-        frontier.pop(0)
-        if now_node.state == goal_node.state:  # 如果到达解，返回解
-            return now_node
-        explored.append(now_node.state)  # 标记为已探索
-        max_explored_size = len(explored) if max_explored_size < len(explored) else max_explored_size
-        for action in [[0, 1], [0, -1], [1, 0], [-1, 0]]:
-            new_pos = [now_node.state[0] + action[0], now_node.state[1] + action[1]]
-            if maze_data[new_pos[0]][new_pos[1]] == '1':
-                continue
-            child = Node(new_pos, now_node, now_node.path_cost + 1)
-            if child.state not in explored:  # 将当前节点的子节点全部加入队列
-                frontier.append(child)
-        max_frontier_size = len(frontier) if max_frontier_size < len(frontier) else max_frontier_size
-    return False
-
-
 def gener_mat(src: list):
     obj_list = [0] * 36
     obj_lists = []
