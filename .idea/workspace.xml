@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d638d3d-962a-4141-afcc-e398a8263cf9" name="Default Changelist" comment="Default Changelist">
+      <change afterPath="$PROJECT_DIR$/week_5/othello_ai.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week_5/othello_gui.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week_5/othello_module.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week_5/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/AI_homework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AI_homework.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/week_3/UFS.py" beforeDir="false" afterPath="$PROJECT_DIR$/week_3/UFS.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,6 +18,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/AI_Homework$test__1_.coverage" NAME="test (1) Coverage Results" MODIFIED="1542859875628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/week_5" />
     <SUITE FILE_PATH="coverage/AI_homework$regression.coverage" NAME="regression Coverage Results" MODIFIED="1537274658540" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/week_1/regression" />
     <SUITE FILE_PATH="coverage/AI_Homework$UFS.coverage" NAME="UFS Coverage Results" MODIFIED="1541374041908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/week_3" />
     <SUITE FILE_PATH="coverage/AI_homework$classification.coverage" NAME="classification Coverage Results" MODIFIED="1537273039995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/week_1/classify" />
@@ -20,6 +26,7 @@
     <SUITE FILE_PATH="coverage/AI_homework$ID3.coverage" NAME="ID3 Coverage Results" MODIFIED="1539085864747" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/week_2" />
     <SUITE FILE_PATH="coverage/AI_homework$test.coverage" NAME="test Coverage Results" MODIFIED="1538814205474" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/week_2" />
     <SUITE FILE_PATH="coverage/AI_Homework$ID3.coverage" NAME="ID3 Coverage Results" MODIFIED="1541355905426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/week_2" />
+    <SUITE FILE_PATH="coverage/AI_Homework$othello_gui.coverage" NAME="othello_gui Coverage Results" MODIFIED="1542866869750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/week_5" />
     <SUITE FILE_PATH="coverage/AI_homework$task_one.coverage" NAME="task_one Coverage Results" MODIFIED="1537252281546" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/week_1" />
   </component>
   <component name="DatabaseView">
@@ -98,20 +105,60 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UFS.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UFS.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/week_3/UFS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="67" column="31" lean-forward="true" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
+            <state relative-caret-position="220">
+              <caret line="53" column="12" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MazeData.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/week_3/MazeData.txt">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/week_5/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+            <state relative-caret-position="-3860">
+              <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/week_5/test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="othello_module.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/week_5/othello_module.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-660" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="othello_ai.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/week_5/othello_ai.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="59" column="34" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="othello_gui.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/week_5/othello_gui.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="122">
+              <caret line="233" selection-start-line="233" selection-end-line="233" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,6 +198,7 @@
       <find>filterDataset</find>
       <find>value</find>
       <find>print</find>
+      <find>drop</find>
     </findStrings>
     <replaceStrings>
       <replace>word_appear_page</replace>
@@ -193,6 +241,8 @@
         <option value="$PROJECT_DIR$/week_2/ID3.py" />
         <option value="$PROJECT_DIR$/week_3/MazeData.txt" />
         <option value="$PROJECT_DIR$/week_3/UFS.py" />
+        <option value="$PROJECT_DIR$/week_5/test.py" />
+        <option value="$PROJECT_DIR$/week_5/othello_ai.py" />
       </list>
     </option>
   </component>
@@ -206,10 +256,10 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="7" />
-    <option name="y" value="-10" />
-    <option name="width" value="1750" />
-    <option name="height" value="975" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -229,6 +279,16 @@
               <item name="AI_Homework" type="462c0819:PsiDirectoryNode" />
               <item name="week_3" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="AI_Homework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AI_Homework" type="462c0819:PsiDirectoryNode" />
+              <item name="week_4" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AI_Homework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AI_Homework" type="462c0819:PsiDirectoryNode" />
+              <item name="week_5" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -243,17 +303,17 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\beta\class_beta" />
-      <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\classify" />
-      <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\semeval" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\xieji\Documents\GitHub\AI_Homework\week_5" />
       <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\beta\regress_beta" />
       <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\beta" />
       <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\regression" />
       <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\classify" />
-      <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\beta\class_beta" />
+      <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\classify" />
+      <recent name="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\semeval" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -268,7 +328,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.UFS">
+  <component name="RunManager" selected="Python.othello_gui">
     <configuration name="ID3" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AI_homework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -307,7 +367,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="classification (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="othello_gui" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AI_homework" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -315,18 +375,18 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/week_1/beta" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/week_5" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\xieji\Documents\GitHub\AI_homework\week_1\beta\class_beta\classification.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/week_5/othello_gui.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="regression" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AI_homework" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -334,12 +394,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/week_1/regression" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/week_5" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/week_1/regression/regression.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/week_5/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -365,19 +425,19 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list>
-      <item itemvalue="Python.regression" />
-      <item itemvalue="Python.classification (1)" />
       <item itemvalue="Python.ID3" />
       <item itemvalue="Python.test" />
       <item itemvalue="Python.UFS" />
+      <item itemvalue="Python.test (1)" />
+      <item itemvalue="Python.othello_gui" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.othello_gui" />
+        <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.UFS" />
         <item itemvalue="Python.ID3" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.classification (1)" />
-        <item itemvalue="Python.regression" />
       </list>
     </recent_temporary>
   </component>
@@ -444,51 +504,84 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067025" side_tool="true" weight="0.52387846" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="File Transfer" weight="0.32956153" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32956153" />
       <window_info anchor="bottom" id="Python Console" order="12" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932975" weight="0.407355" />
-      <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.65543646" visible="true" weight="0.14812332" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932975" weight="0.29985857" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.6053748" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.65543646" visible="true" weight="0.31903484" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" visible="true" weight="0.103217155" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32954547" />
       <window_info id="Structure" order="1" sideWeight="0.34456354" side_tool="true" weight="0.20040214" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.5572843" />
       <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.24611032" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.65543646" visible="true" weight="0.14812332" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32956153" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932975" weight="0.407355" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info id="Structure" order="1" sideWeight="0.34456354" side_tool="true" weight="0.20040214" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.103217155" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067025" side_tool="true" weight="0.52387846" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.49059334" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49932975" visible="true" weight="0.054992765" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.65543646" visible="true" weight="0.20040214" />
       <window_info id="Structure" order="1" sideWeight="0.34456354" side_tool="true" visible="true" weight="0.20040214" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49932975" visible="true" weight="0.054992765" />
-      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.49059334" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4732272" />
       <window_info anchor="right" id="Database" order="4" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067025" side_tool="true" weight="0.52387846" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.32954547" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.49059334" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067025" side_tool="true" weight="0.52387846" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.32954547" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -504,6 +597,23 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/week_5/othello_ai.py</url>
+          <line>63</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/week_5/othello_ai.py</url>
+          <line>56</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/week_5/othello_ai.py</url>
+          <line>85</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -511,19 +621,23 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="17" />
+      <option name="time" value="26" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="__py_debug_temp_var_371523108" />
-        <watch expression="len(dataSet)" language="Python" />
-        <watch expression="__py_debug_temp_var_704391439" />
-        <watch expression="maze_data[1]" language="Python" />
+        <watch expression="grid" language="Python" />
+        <watch expression="self._basic[0][0]" />
+        <watch expression="self" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>grid</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>maze_data[1]</expression-string>
         <language-id>Python</language-id>
@@ -569,14 +683,40 @@
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>np.corrcoef(x,y)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/week_2/ID3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5620">
+          <caret line="287" column="24" selection-start-line="287" selection-start-column="24" selection-end-line="287" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/ProgramData/Anaconda3/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="309" selection-start-line="309" selection-end-line="309" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/week_3/MazeData.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/week_3/UFS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="58" column="8" lean-forward="true" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/week_2/ID3.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5620">
@@ -805,6 +945,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://D:/ProgramData/Anaconda3/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="309" selection-start-line="309" selection-end-line="309" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/week_3/MazeData.txt" />
+    <entry file="file://$PROJECT_DIR$/week_3/UFS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="53" column="12" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/week_2/ID3.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
@@ -815,24 +970,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/ProgramData/Anaconda3/Lib/codecs.py">
+    <entry file="file://$PROJECT_DIR$/week_5/othello_gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="309" selection-start-line="309" selection-end-line="309" />
+        <state relative-caret-position="122">
+          <caret line="233" selection-start-line="233" selection-end-line="233" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/week_3/MazeData.txt">
+    <entry file="file://$PROJECT_DIR$/week_5/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+        <state relative-caret-position="-3860">
+          <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/week_3/UFS.py">
+    <entry file="file://$PROJECT_DIR$/week_5/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="67" column="31" lean-forward="true" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
+        <state relative-caret-position="140">
+          <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/week_5/othello_module.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-660" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/week_5/othello_ai.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="59" column="34" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
