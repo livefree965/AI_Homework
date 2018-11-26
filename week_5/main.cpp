@@ -13,12 +13,6 @@
 using namespace std;
 
 int METHOD_TRUN = 10;
-int weights[6][6] = {{25, 16, 16, 16, 16, 25},
-                     {16, 9,  4,  4,  9,  16},
-                     {16, 4,  1,  1,  4,  16},
-                     {16, 4,  1,  1,  4,  16},
-                     {16, 9,  4,  4,  9,  16},
-                     {25, 16, 16, 16, 16, 25}};
 int weights2[6][6] = {{50,  -10, 0, 0, -10, 50},
                       {-10, -20, 0, 0, -20, -10},
                       {0,   0,   0, 0, 0,   0},
@@ -89,9 +83,59 @@ double value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
     double res = 0;
     for (int i = 0; i < 6; ++i) {
         for (int j = 0; j < 6; ++j) {
-            res -= grid[i][j] * (i - 2.5) * (i - 2.5) * (j - 2.5) * (j - 2.5);
+            res -= grid[i][j] * abs((i - 2.5) * (j - 2.5));
         }
     }
+
+
+//    double res = 0;
+//    for (int i = 0; i < 6; ++i) {
+//        for (int j = 0; j < 6; ++j) {
+//            res -= grid[i][j] * weights2[i][j];
+//        }
+//    }
+
+//    double res = 0;
+//    int steps = 0;
+//    int after_res = 0;
+//    for (int i = 0; i < 6; ++i) {
+//        for (int j = 0; j < 6; ++j) {
+//            if (grid[i][j] != 0) {
+//                steps++;
+//                after_res -= grid[i][j];
+//            }
+//            res -= grid[i][j] * weights2[i][j];
+//        }
+//    }
+//    if (steps > 20)
+//        return after_res;
+
+//    double res = 0;
+//    int steps = 0;
+//    int after_res = 0;
+//    for (int i = 0; i < 6; ++i) {
+//        for (int j = 0; j < 6; ++j) {
+//            if (grid[i][j] != 0) {
+//                steps++;
+//                after_res -= grid[i][j];
+//            }
+//        }
+//    }
+//    if (steps > METHOD_TRUN)
+//        return after_res;
+//    else {
+//        for (int i = 0; i < 6; ++i) {
+//            for (int j = 0; j < 6; ++j) {
+//                if (weights2[i][j] == 50) {
+//                    res -= grid[i][j] * (70 - steps);
+//                } else if (weights2[i][j] == -20)
+//                    res -= grid[i][j] * (-50 + steps);
+//                else if (weights2[i][j] == -10)
+//                    res -= grid[i][j] * (-40 + steps);
+//            }
+//        }
+//    }
+//    res += deploy_option(grid, BLACK).size();
     return res;
 }
 
@@ -125,8 +169,9 @@ bool deploy_chess(int grid[GRID_SIZE][GRID_SIZE], Node &obj) {
 };
 
 double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double beta, int player) {
-    if (depth == 0)
+    if (depth == 0) {
         return value_grid(grid);
+    }
     int tmp[GRID_SIZE][GRID_SIZE];
     memcpy(tmp, grid, 36 * sizeof(int));
     if (player == MAXPLAYER) {
@@ -151,7 +196,7 @@ double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double
         }
         for (int i = 0; i < choices.size(); ++i) {
             memcpy(tmp, grid, 36 * sizeof(int));
-            deploy_chess(grid, choices[i]);
+            deploy_chess(tmp, choices[i]);
             beta = min(beta, alphabeta(tmp, depth - 1, alpha, beta, MAXPLAYER));
             if (beta <= alpha)
                 break;
@@ -181,7 +226,7 @@ bool show_grid(int grid[GRID_SIZE][GRID_SIZE], vector<Node> *potent = nullptr) {
                 cout << "# ";
             else if (i[j] == BLACK)
                 cout << "@ ";
-            else if (i[j] >= 'A' and i[j] <= 'G')
+            else if (i[j] >= 'A')
                 cout << char(i[j]) << " ";
             else
                 cout << "_ ";
@@ -205,7 +250,7 @@ bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
         for (int i = 0; i < choices.size(); ++i) {
             memcpy(tmp, grid, 36 * sizeof(int));
             deploy_chess(tmp, choices[i]);
-            double alpha = alphabeta(tmp, SEARCH_DEPTH, -10000, 10000, MINPLAYER);
+            double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, MINPLAYER);
             if (max_alpha < alpha) {
                 ai_choice = i;
                 max_alpha = alpha;
@@ -222,7 +267,7 @@ bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
         for (int i = 0; i < choices.size(); ++i) {
             memcpy(tmp, grid, 36 * sizeof(int));
             deploy_chess(tmp, choices[i]);
-            double alpha = alphabeta(tmp, SEARCH_DEPTH, -10000, 10000, MAXPLAYER);
+            double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, MAXPLAYER);
             if (min_alpha > alpha) {
                 ai_choice = i;
                 min_alpha = alpha;
@@ -292,7 +337,7 @@ void show_value(int grid[GRID_SIZE][GRID_SIZE], int player) {
     for (auto &choice : choices) {
         memcpy(tmp, grid, 36 * sizeof(int));
         deploy_chess(tmp, choice);
-        double alpha = alphabeta(tmp, SEARCH_DEPTH, -10000, 10000, 1 - MAXPLAYER);
+        double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, MINPLAYER);
         cout << now_char << " :" << alpha << endl;
         now_char++;
     }
@@ -305,15 +350,15 @@ int human_black() {
     int flag = true;
     while (flag) {
         flag = false;
-//        cout << "wait human and now value --------------------------------" << endl;
-//        show_value(grid, MAXPLAYER);
-        flag += make_move(grid, MAXPLAYER);
-//        cout << "---------------------------------------------------------" << endl;
-//        cout << "wait AI and now value --------------------------------" << endl;
-//        show_value(grid, MINPLAYER);
+        cout << "wait human and now value --------------------------------" << endl;
+        show_value(grid, MAXPLAYER);
+        flag += input_move(grid, MAXPLAYER);
+        cout << "---------------------------------------------------------" << endl;
+        cout << "wait AI and now value --------------------------------" << endl;
+        show_value(grid, MINPLAYER);
         vector<Node> choices = deploy_option(grid, WHITE);
         flag += make_move(grid, MINPLAYER);
-//        cout << "---------------------------------------------------------" << endl;
+        cout << "---------------------------------------------------------" << endl;
     };
 };
 
@@ -363,26 +408,22 @@ int self_fight() {
 }
 
 int main() {
-    int win = 0, lose = 0, tie = 0, res;
-    for (int i = 0; i < 100; ++i) {
-        res = self_fight();
-        if (res > 0)
-            win++;
-        else if (res == 0)
-            tie++;
-        else
-            lose++;
-        cout << "lose: " << lose << " tie: " << tie << " win: " << win << endl;
-    }
 //    human_black();
-//    int win = 0, lose = 0, res;
-//    for (int i = 0; i < 200; ++i) {
-//        res = self_fight();
-//        if (res < 0)
-//            lose++;
-//        else
-//            win++;
-//        cout << "lose: " << lose << " win: " << win << endl;
-//    }
+    int win = 0, lose = 0, tie = 0, res;
+    for (int j = 0; j < 20; ++j) {
+        win = lose = tie = 0;
+        METHOD_TRUN++;
+        cout << "Now method turn: " << METHOD_TRUN << endl;
+        for (int i = 0; i < 100; ++i) {
+            res = self_fight();
+            if (res > 0)
+                win++;
+            else if (res == 0)
+                tie++;
+            else
+                lose++;
+            cout << "lose: " << lose << " tie: " << tie << " win: " << win << endl;
+        }
+    }
     return 0;
 }
