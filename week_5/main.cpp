@@ -7,16 +7,17 @@
 #define WHITE 1
 #define BLACK -1
 #define GRID_SIZE 6
-#define MAXPLAYER 1
-#define MINPLAYER 0
+#define MAXPLAYER -1
+#define MINPLAYER 1
 #define SEARCH_DEPTH 6
 using namespace std;
 
+int METHOD_TRUN = 10;
 int weights[6][6] = {{25, 16, 16, 16, 16, 25},
-                     {16, 9, 4, 4, 9, 16},
-                     {16, 4, 1, 1, 4, 16},
-                     {16, 4, 1, 1, 4, 16},
-                     {16, 9, 4, 4, 9, 16},
+                     {16, 9,  4,  4,  9,  16},
+                     {16, 4,  1,  1,  4,  16},
+                     {16, 4,  1,  1,  4,  16},
+                     {16, 9,  4,  4,  9,  16},
                      {25, 16, 16, 16, 16, 25}};
 int weights2[6][6] = {{50,  -10, 0, 0, -10, 50},
                       {-10, -20, 0, 0, -20, -10},
@@ -84,44 +85,24 @@ vector<Node> deploy_option(int grid[GRID_SIZE][GRID_SIZE], int color) {
     return res;
 };
 
-int value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
-    //fist version
-//    int blacks = 0, whites = 0;
-//    for (int i = 0; i < GRID_SIZE; ++i) {
-//        for (int j = 0; j < GRID_SIZE; ++j) {
-//            if (grid[i][j] == WHITE)
-//                whites += 1;
-//            else if (grid[i][j] == BLACK)
-//                blacks += 1;
-//        }
-//    }
-    int res = 0, blacks = 0, whites = 0;
-    bool end = true;
+double value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
+    double res = 0;
     for (int i = 0; i < 6; ++i) {
         for (int j = 0; j < 6; ++j) {
-            if (grid[i][j] == BLACK) {
-                res += weights[i][j];
-                blacks++;
-            } else if (grid[i][j] == WHITE) {
-//                res -= weights[i][j];
-                whites++;
-            } else
-                end = false;
+            res -= grid[i][j] * (i - 2.5) * (i - 2.5) * (j - 2.5) * (j - 2.5);
         }
     }
-//    if (blacks + whites > 24) {
-//        return blacks;
-//    }
-//    if (end) {
-//        if (blacks > 18)
-//            return 1000;
-//        else if (blacks < 18)
-//            return -1000;
-//        else
-//            return 0;
-//    }
-    //second version
     return res;
+}
+
+bool gameend(int grid[GRID_SIZE][GRID_SIZE]) {
+    int res = 0;
+    for (int i = 0; i < 6; ++i) {
+        for (int j = 0; j < 6; ++j) {
+            res -= grid[i][j];
+        }
+    }
+    return res > 0;
 }
 
 bool deploy_chess(int grid[GRID_SIZE][GRID_SIZE], Node &obj) {
@@ -143,35 +124,41 @@ bool deploy_chess(int grid[GRID_SIZE][GRID_SIZE], Node &obj) {
     return true;
 };
 
-int alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, int alpha, int beta, int player) {
+double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double beta, int player) {
     if (depth == 0)
         return value_grid(grid);
     int tmp[GRID_SIZE][GRID_SIZE];
     memcpy(tmp, grid, 36 * sizeof(int));
-    vector<Node> choices = deploy_option(grid, BLACK);
-    if (choices.empty())
-        return value_grid(grid);
-    else {
-        if (player == MAXPLAYER) {
-            for (auto &choice : choices) {
-                memcpy(tmp, grid, 36 * sizeof(int));
-                deploy_chess(grid, choice);
-                alpha = max(alpha, alphabeta(tmp, depth - 1, alpha, beta, MINPLAYER));
-                if (beta <= alpha)
-                    break;
-            }
-            return alpha;
-        } else {
-            for (int i = 0; i < choices.size(); ++i) {
-                memcpy(tmp, grid, 36 * sizeof(int));
-                deploy_chess(grid, choices[i]);
-                beta = min(beta, alphabeta(tmp, depth - 1, alpha, beta, MAXPLAYER));
-                if (beta <= alpha)
-                    break;
-            }
-            return beta;
+    if (player == MAXPLAYER) {
+        vector<Node> choices = deploy_option(grid, BLACK);
+        if (choices.empty())
+            return value_grid(grid);
+        for (auto &choice : choices) {
+            memcpy(tmp, grid, 36 * sizeof(int));
+            deploy_chess(grid, choice);
+            alpha = max(alpha, alphabeta(tmp, depth - 1, alpha, beta, MINPLAYER));
+            if (beta <= alpha)
+                break;
         }
+        return alpha;
+    } else {
+        vector<Node> choices = deploy_option(grid, WHITE);
+        if (choices.empty()) {
+            if (gameend(grid))
+                return 100000;
+            else
+                return -100000;
+        }
+        for (int i = 0; i < choices.size(); ++i) {
+            memcpy(tmp, grid, 36 * sizeof(int));
+            deploy_chess(grid, choices[i]);
+            beta = min(beta, alphabeta(tmp, depth - 1, alpha, beta, MAXPLAYER));
+            if (beta <= alpha)
+                break;
+        }
+        return beta;
     }
+
 }
 
 bool show_grid(int grid[GRID_SIZE][GRID_SIZE], vector<Node> *potent = nullptr) {
@@ -213,11 +200,12 @@ bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
         if (choices.empty())
             return false;
         int tmp[GRID_SIZE][GRID_SIZE];
-        int ai_choice = 0, max_alpha = -10000;
+        int ai_choice = 0;
+        double max_alpha = -10000;
         for (int i = 0; i < choices.size(); ++i) {
             memcpy(tmp, grid, 36 * sizeof(int));
             deploy_chess(tmp, choices[i]);
-            int alpha = alphabeta(tmp, SEARCH_DEPTH, -10000, 10000, MINPLAYER);
+            double alpha = alphabeta(tmp, SEARCH_DEPTH, -10000, 10000, MINPLAYER);
             if (max_alpha < alpha) {
                 ai_choice = i;
                 max_alpha = alpha;
@@ -229,11 +217,12 @@ bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
         if (choices.empty())
             return false;
         int tmp[GRID_SIZE][GRID_SIZE];
-        int ai_choice = 0, min_alpha = 10000;
+        int ai_choice = 0;
+        double min_alpha = 10000;
         for (int i = 0; i < choices.size(); ++i) {
             memcpy(tmp, grid, 36 * sizeof(int));
             deploy_chess(tmp, choices[i]);
-            int alpha = alphabeta(tmp, SEARCH_DEPTH, -10000, 10000, MAXPLAYER);
+            double alpha = alphabeta(tmp, SEARCH_DEPTH, -10000, 10000, MAXPLAYER);
             if (min_alpha > alpha) {
                 ai_choice = i;
                 min_alpha = alpha;
@@ -270,7 +259,7 @@ bool input_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
     else
         choices = deploy_option(grid, WHITE);
     char human_choice;
-    show_grid(grid, &choices);
+//    show_grid(grid, &choices);
     if (!choices.empty()) {
         cin >> human_choice;
         human_choice -= 65;
@@ -303,7 +292,7 @@ void show_value(int grid[GRID_SIZE][GRID_SIZE], int player) {
     for (auto &choice : choices) {
         memcpy(tmp, grid, 36 * sizeof(int));
         deploy_chess(tmp, choice);
-        int alpha = alphabeta(tmp, SEARCH_DEPTH, -10000, 10000, 1 - MAXPLAYER);
+        double alpha = alphabeta(tmp, SEARCH_DEPTH, -10000, 10000, 1 - MAXPLAYER);
         cout << now_char << " :" << alpha << endl;
         now_char++;
     }
@@ -316,14 +305,15 @@ int human_black() {
     int flag = true;
     while (flag) {
         flag = false;
-        show_value(grid, MAXPLAYER);
-        flag += input_move(grid, MAXPLAYER);
-        cout << "human moved:" << endl;
-        show_grid(grid);
+//        cout << "wait human and now value --------------------------------" << endl;
+//        show_value(grid, MAXPLAYER);
+        flag += make_move(grid, MAXPLAYER);
+//        cout << "---------------------------------------------------------" << endl;
+//        cout << "wait AI and now value --------------------------------" << endl;
+//        show_value(grid, MINPLAYER);
         vector<Node> choices = deploy_option(grid, WHITE);
-        cout << "ai:" << endl;
         flag += make_move(grid, MINPLAYER);
-        show_grid(grid);
+//        cout << "---------------------------------------------------------" << endl;
     };
 };
 
@@ -350,14 +340,15 @@ int self_fight() {
     int flag = true;
     while (flag) {
         flag = false;
+//        cout << "wait human and now value --------------------------------" << endl;
 //        show_value(grid, MAXPLAYER);
         flag += make_move(grid, MAXPLAYER);
-//        cout << "ai moved:" << endl;
-//        show_grid(grid);
+//        cout << "---------------------------------------------------------" << endl;
+//        cout << "wait AI and now value --------------------------------" << endl;
+//        show_value(grid, MINPLAYER);
         vector<Node> choices = deploy_option(grid, WHITE);
-//        cout << "human move:" << endl;
         flag += random_move(grid, MINPLAYER);
-//        show_grid(grid);
+//        cout << "---------------------------------------------------------" << endl;
     };
     int black = 0, white = 0;
     for (int i = 0; i < 6; ++i) {
@@ -372,14 +363,26 @@ int self_fight() {
 }
 
 int main() {
-    int win = 0, lose = 0, res;
-    for (int i = 0; i < 200; ++i) {
+    int win = 0, lose = 0, tie = 0, res;
+    for (int i = 0; i < 100; ++i) {
         res = self_fight();
-        if (res < 0)
-            lose++;
-        else
+        if (res > 0)
             win++;
-        cout << "lose: " << lose << " win: " << win << endl;
+        else if (res == 0)
+            tie++;
+        else
+            lose++;
+        cout << "lose: " << lose << " tie: " << tie << " win: " << win << endl;
     }
+//    human_black();
+//    int win = 0, lose = 0, res;
+//    for (int i = 0; i < 200; ++i) {
+//        res = self_fight();
+//        if (res < 0)
+//            lose++;
+//        else
+//            win++;
+//        cout << "lose: " << lose << " win: " << win << endl;
+//    }
     return 0;
 }
