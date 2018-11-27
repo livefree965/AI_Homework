@@ -1,7 +1,7 @@
 import othello_module
 from ctypes import *
 
-res = cdll.LoadLibrary("C:\\Users\\xieji\\CLionProjects\\untitled\\main.dll")
+res = cdll.LoadLibrary("main.dll")
 grid = (c_int * 36)()
 
 

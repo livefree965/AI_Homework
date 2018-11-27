@@ -9,10 +9,10 @@
 #define GRID_SIZE 6
 #define MAXPLAYER -1
 #define MINPLAYER 1
-#define SEARCH_DEPTH 6
+int SEARCH_DEPTH = 1;
 using namespace std;
 
-int METHOD_TRUN = 10;
+int METHOD_TRUN = 20;
 int weights2[6][6] = {{50,  -10, 0, 0, -10, 50},
                       {-10, -20, 0, 0, -20, -10},
                       {0,   0,   0, 0, 0,   0},
@@ -86,14 +86,23 @@ vector<Action> deploy_option(int grid[GRID_SIZE][GRID_SIZE], int color) {
 };
 
 double value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
+    //落子数
 //    double res = 0;
 //    for (int i = 0; i < 6; ++i) {
 //        for (int j = 0; j < 6; ++j) {
-//            res -= grid[i][j] * abs((i - 2.5) * (j - 2.5));
+//            res -= grid[i][j];
 //        }
 //    }
 
+    //曼哈顿乘积
+    double res = 0;
+    for (int i = 0; i < 6; ++i) {
+        for (int j = 0; j < 6; ++j) {
+            res -= grid[i][j] * abs((i - 2.5) * (j - 2.5));
+        }
+    }
 
+    //固定权重
 //    double res = 0;
 //    for (int i = 0; i < 6; ++i) {
 //        for (int j = 0; j < 6; ++j) {
@@ -101,6 +110,7 @@ double value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
 //        }
 //    }
 
+    //动态权重
 //    double res = 0;
 //    int steps = 0;
 //    int after_res = 0;
@@ -110,50 +120,26 @@ double value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
 //                steps++;
 //                after_res -= grid[i][j];
 //            }
-//            res -= grid[i][j] * weights2[i][j];
 //        }
 //    }
-//    if (steps > 20)
+//    if (steps > METHOD_TRUN)
 //        return after_res;
-
-    double res = 0;
-    int steps = 0;
-    int after_res = 0;
-    for (int i = 0; i < 6; ++i) {
-        for (int j = 0; j < 6; ++j) {
-            if (grid[i][j] != 0) {
-                steps++;
-                after_res -= grid[i][j];
-            }
-        }
-    }
-    if (steps > METHOD_TRUN)
-        return after_res;
-    else {
-        for (int i = 0; i < 6; ++i) {
-            for (int j = 0; j < 6; ++j) {
-                if (weights2[i][j] == 50) {
-                    res -= grid[i][j] * (70 - steps);
-                } else if (weights2[i][j] == -20)
-                    res -= grid[i][j] * (-50 + steps);
-                else if (weights2[i][j] == -10)
-                    res -= grid[i][j] * (-40 + steps);
-            }
-        }
-    }
-    res += deploy_option(grid, BLACK).size();
+//    else {
+//        for (int i = 0; i < 6; ++i) {
+//            for (int j = 0; j < 6; ++j) {
+//                if (weights2[i][j] == 50) {
+//                    res -= grid[i][j] * (70 - steps);
+//                } else if (weights2[i][j] == -20)
+//                    res -= grid[i][j] * (-50 + steps);
+//                else if (weights2[i][j] == -10)
+//                    res -= grid[i][j] * (-40 + steps);
+//            }
+//        }
+//    }
+//    res += deploy_option(grid, BLACK).size();
     return res;
 }
 
-bool gameend(int grid[GRID_SIZE][GRID_SIZE]) {
-    int res = 0;
-    for (int i = 0; i < 6; ++i) {
-        for (int j = 0; j < 6; ++j) {
-            res -= grid[i][j];
-        }
-    }
-    return res > 0;
-}
 
 void deploy_chess(int grid[GRID_SIZE][GRID_SIZE], Action &action) {
     int newx, newy;
@@ -182,7 +168,7 @@ double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double
             return value_grid(grid);
         for (auto &choice : choices) {
             memcpy(tmp, grid, 36 * sizeof(int));
-            deploy_chess(grid, choice);     //tmp是grid的副本
+            deploy_chess(tmp, choice);     //tmp是grid的副本
             alpha = max(alpha, alphabeta(tmp, depth - 1, alpha, beta, MINPLAYER));//递归获得下一层的alpha并取最大值
             if (beta <= alpha)
                 break;  //剪枝
@@ -330,13 +316,18 @@ void show_value(int grid[GRID_SIZE][GRID_SIZE], int player) {
         choices = deploy_option(grid, BLACK);
     else
         choices = deploy_option(grid, WHITE);
+    int oppent;
+    if (player == MAXPLAYER)
+        oppent = MINPLAYER;
+    else
+        oppent = MAXPLAYER;
     cout << "estimate value" << endl;
     show_grid(grid, &choices);
     char now_char = 'A';
     for (auto &choice : choices) {
         memcpy(tmp, grid, 36 * sizeof(int));
         deploy_chess(tmp, choice);
-        double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, MINPLAYER);
+        double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, oppent);
         cout << now_char << " :" << alpha << endl;
         now_char++;
     }
@@ -407,13 +398,12 @@ int self_fight() {
 }
 
 int main() {
-//    human_black();
+    human_black();
     int win = 0, lose = 0, tie = 0, res;
-    for (int j = 0; j < 20; ++j) {
+    for (int j = 0; j < 5; ++j) {
         win = lose = tie = 0;
-        METHOD_TRUN = 20;
-        cout << "Now method turn: " << METHOD_TRUN << endl;
-        for (int i = 0; i < 100; ++i) {
+        cout << "SEARCH DEPTH: " << SEARCH_DEPTH << endl;
+        for (int i = 0; i < 200; ++i) {
             res = self_fight();
             if (res > 0)
                 win++;
@@ -421,8 +411,10 @@ int main() {
                 tie++;
             else
                 lose++;
-            cout << "lose: " << lose << " tie: " << tie << " win: " << win << endl;
         }
+        cout << "lose: " << lose << " tie: " << tie << " win: " << win << " ratio: " << win / 200.0 << endl;
+        SEARCH_DEPTH++;
     }
+
     return 0;
 }
