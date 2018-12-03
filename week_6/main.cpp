@@ -7,8 +7,8 @@
 #include <cstring>
 #include <memory.h>
 
-#define GRID_SIZE 8
-int OBJ_LEVEL = 8;
+#define GRID_SIZE 9
+int OBJ_LEVEL = 9;
 using namespace std;
 vector<int *> ans;
 int grid[GRID_SIZE * GRID_SIZE] = {0};
@@ -21,6 +21,7 @@ void show_grid() {
     for (int i = 0; i < GRID_SIZE; ++i) {
         for (int j = 0; j < GRID_SIZE; ++j) {
             printf("%c  ", grid[i * GRID_SIZE + j] == 1 ? 'A' : 'O');
+//            printf("%d  ", grid[i * GRID_SIZE + j]);
         }
         printf("\n");
     }
@@ -51,9 +52,7 @@ bool test_grid(int pos) {
 }
 
 
-bool constraint_fine(int pos) {
-    if (grid[pos] == 1)
-        return false;
+bool constraint_check(int pos) {
     int i = pos % GRID_SIZE;
     for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE) {
         if (grid[i] == 1 && i != pos) {
@@ -85,14 +84,86 @@ bool constraint_fine(int pos) {
     return true;
 }
 
-bool forward_check() {
-    bool res = false;
-    for (int i = 0; i < GRID_SIZE * GRID_SIZE; ++i) {
-        res += constraint_fine(i);
-        if (res)
-            return true;
+void mark_remove(int pos, int level) {
+    int i = pos % GRID_SIZE;
+    for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE) {
+        if (grid[i] == 0)
+            grid[i] = level;
     }
-    return false;
+    i = (pos / GRID_SIZE) * GRID_SIZE;
+    for (; i < (pos / GRID_SIZE) * GRID_SIZE + GRID_SIZE; i++) {
+        if (grid[i] == 0)
+            grid[i] = level;
+    }
+    i = pos - (pos % GRID_SIZE) * (GRID_SIZE + 1);
+    for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE + 1) {
+        if (i < 0) {
+            continue;
+        }
+        if (grid[i] == 0)
+            grid[i] = level;
+        if (i % GRID_SIZE == GRID_SIZE - 1)
+            break;
+    }
+    i = pos - (GRID_SIZE - (pos % GRID_SIZE) - 1) * (GRID_SIZE - 1);
+    for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE - 1) {
+        if (i < 0) {
+            continue;
+        }
+        if (grid[i] == 0)
+            grid[i] = level;
+        if (i % GRID_SIZE == 0)
+            break;
+    }
+}
+
+void unmark_remove(int pos, int level) {
+    int i = pos % GRID_SIZE;
+    for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE) {
+        if (grid[i] == level)
+            grid[i] = 0;
+    }
+    i = (pos / GRID_SIZE) * GRID_SIZE;
+    for (; i < (pos / GRID_SIZE) * GRID_SIZE + GRID_SIZE; i++) {
+        if (grid[i] == level)
+            grid[i] = 0;
+    }
+    i = pos - (pos % GRID_SIZE) * (GRID_SIZE + 1);
+    for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE + 1) {
+        if (i < 0) {
+            continue;
+        }
+        if (grid[i] == level)
+            grid[i] = 0;
+        if (i % GRID_SIZE == GRID_SIZE - 1)
+            break;
+    }
+    i = pos - (GRID_SIZE - (pos % GRID_SIZE) - 1) * (GRID_SIZE - 1);
+    for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE - 1) {
+        if (i < 0) {
+            continue;
+        }
+        if (grid[i] == level)
+            grid[i] = 0;
+        if (i % GRID_SIZE == 0)
+            break;
+    }
+}
+
+bool forward_check(int level) {
+    bool res = false;
+    for (int i = level * GRID_SIZE; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE) {
+        res = false;
+        for (int j = 0; j < GRID_SIZE; ++j) {
+            if (grid[i + j] == 0) {
+                res = true;
+                break;
+            }
+        }
+        if (!res)
+            return false;
+    }
+    return true;
 }
 
 bool is_in_ans(int *grid) {
@@ -111,6 +182,37 @@ bool is_in_ans(int *grid) {
     return false;
 }
 
+void fc_method(int level) {
+//    printf("%d\n", level);
+    if (level == OBJ_LEVEL) {
+        if (!is_in_ans(grid)) {
+            int *res = new int[GRID_SIZE * GRID_SIZE];
+            memcpy(res, grid, sizeof(int) * GRID_SIZE * GRID_SIZE);
+            ans.push_back(res);
+        }
+//        exit(0);
+        return;
+    }
+    int pos = level * GRID_SIZE;
+    for (; pos < (level + 1) * GRID_SIZE; ++pos) {
+        if (grid[pos] == 0) {
+            grid[pos] = 1;
+            mark_remove(pos, -level - 1);
+            if (forward_check(level + 1)) {
+                printf("--------------------------------------------------\n");
+                show_grid();
+                fc_method(level + 1);
+                unmark_remove(pos, -level - 1);
+                grid[pos] = 0;
+            } else {
+                unmark_remove(pos, -level - 1);
+                grid[pos] = 0;
+            }
+        }
+    }
+}
+
+
 void backtrack(int level) {
     if (level == OBJ_LEVEL) {
         if (!is_in_ans(grid)) {
@@ -122,22 +224,23 @@ void backtrack(int level) {
         }
         return;
     }
-    int pos = 0;
-    for (; pos < GRID_SIZE * GRID_SIZE; ++pos) {
-        if (constraint_fine(pos)) {
+    int pos = level * GRID_SIZE;
+    for (; pos < (level + 1) * GRID_SIZE; ++pos) {
+        if (grid[pos] == 0) {
             grid[pos] = 1;
-//            printf("--------------------------------------------------\n");
-//            show_grid();
-//            show_grid();
-            backtrack(level + 1);
-            grid[pos] = 0;
+            if (constraint_check(pos)) {
+                backtrack(level + 1);
+                grid[pos] = 0;
+            } else
+                grid[pos] = 0;
         }
     }
 }
 
 int main() {
+//    backtrack(0);
 //    grid[get_pos(0, 3)] = 1;
-    backtrack(0);
+    fc_method(0);
     printf("sum: %d\n", int(ans.size()));
     int n = 8;
     return 0;
