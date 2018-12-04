@@ -7,11 +7,11 @@
 #include <cstring>
 #include <memory.h>
 
-#define GRID_SIZE 9
-int OBJ_LEVEL = 9;
+int GRID_SIZE;
+int OBJ_LEVEL;
 using namespace std;
 vector<int *> ans;
-int grid[GRID_SIZE * GRID_SIZE] = {0};
+int *grid = NULL;
 
 int get_pos(const int &x, const int &y) {
     return x * GRID_SIZE + y;
@@ -166,30 +166,13 @@ bool forward_check(int level) {
     return true;
 }
 
-bool is_in_ans(int *grid) {
-    bool res;
-    for (int i = 0; i < ans.size(); ++i) {
-        res = true;
-        for (int j = 0; j < GRID_SIZE * GRID_SIZE; ++j) {
-            if (grid[j] != ans[i][j]) {
-                res = false;
-                break;
-            }
-        }
-        if (res)
-            return true;
-    }
-    return false;
-}
 
 void fc_method(int level) {
 //    printf("%d\n", level);
     if (level == OBJ_LEVEL) {
-        if (!is_in_ans(grid)) {
-            int *res = new int[GRID_SIZE * GRID_SIZE];
-            memcpy(res, grid, sizeof(int) * GRID_SIZE * GRID_SIZE);
-            ans.push_back(res);
-        }
+        int *res = new int[GRID_SIZE * GRID_SIZE];
+        memcpy(res, grid, sizeof(int) * GRID_SIZE * GRID_SIZE);
+        ans.push_back(res);
 //        exit(0);
         return;
     }
@@ -199,8 +182,8 @@ void fc_method(int level) {
             grid[pos] = 1;
             mark_remove(pos, -level - 1);
             if (forward_check(level + 1)) {
-                printf("--------------------------------------------------\n");
-                show_grid();
+//                printf("--------------------------------------------------\n");
+//                show_grid();
                 fc_method(level + 1);
                 unmark_remove(pos, -level - 1);
                 grid[pos] = 0;
@@ -215,13 +198,11 @@ void fc_method(int level) {
 
 void backtrack(int level) {
     if (level == OBJ_LEVEL) {
-        if (!is_in_ans(grid)) {
-            printf("--------------------------------------------------\n");
-            show_grid();
-            int *res = new int[GRID_SIZE * GRID_SIZE];
-            memcpy(res, grid, sizeof(int) * GRID_SIZE * GRID_SIZE);
-            ans.push_back(res);
-        }
+        //            printf("--------------------------------------------------\n");
+        //            show_grid();
+        int *res = new int[GRID_SIZE * GRID_SIZE];
+        memcpy(res, grid, sizeof(int) * GRID_SIZE * GRID_SIZE);
+        ans.push_back(res);
         return;
     }
     int pos = level * GRID_SIZE;
@@ -237,10 +218,14 @@ void backtrack(int level) {
     }
 }
 
-int main() {
-//    backtrack(0);
+int main(int argc, char *argv[]) {
+    int input = atoi(argv[1]);
+    GRID_SIZE = input;
+    OBJ_LEVEL = input;
+    grid = new int[GRID_SIZE * GRID_SIZE];
+    backtrack(0);
 //    grid[get_pos(0, 3)] = 1;
-    fc_method(0);
+//    fc_method(0);
     printf("sum: %d\n", int(ans.size()));
     int n = 8;
     return 0;
