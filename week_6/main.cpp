@@ -52,35 +52,50 @@ bool test_grid(int pos) {
 }
 
 
-bool constraint_check(int pos) {
-    int i = pos % GRID_SIZE;
-    for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE) {
-        if (grid[i] == 1 && i != pos) {
-            return false;
+bool constraint_check() {
+    int pos;    //chess_man position
+    for (int j = 0; j < GRID_SIZE * GRID_SIZE; ++j) {
+        if (grid[j] != 1)
+            continue;
+        pos = j;    //grid[pos] has a chess_man
+
+        //check col
+        int i = pos % GRID_SIZE;
+        for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE) {
+            if (grid[i] == 1 && i != pos) {
+                return false;
+            }
+        }
+
+        //check row
+        i = (pos / GRID_SIZE) * GRID_SIZE;
+        for (; i < (pos / GRID_SIZE) * GRID_SIZE + GRID_SIZE; i++) {
+            if (grid[i] == 1 && i != pos) {
+                return false;
+            }
+        }
+
+        //check / direction
+        i = pos - min(pos % GRID_SIZE, pos / GRID_SIZE) * (GRID_SIZE + 1);
+        for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE + 1) {
+            if (grid[i] == 1 && i != pos) {
+                return false;
+            }
+            if (i % GRID_SIZE == GRID_SIZE - 1)
+                break;
+        }
+
+        //check \ dirction
+        i = pos - min((GRID_SIZE - (pos % GRID_SIZE) - 1), (pos / GRID_SIZE)) * (GRID_SIZE - 1);
+        for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE - 1) {
+            if (grid[i] == 1 && i != pos) {
+                return false;
+            }
+            if (i % GRID_SIZE == 0)
+                break;
         }
     }
-    i = (pos / GRID_SIZE) * GRID_SIZE;
-    for (; i < (pos / GRID_SIZE) * GRID_SIZE + GRID_SIZE; i++) {
-        if (grid[i] == 1 && i != pos) {
-            return false;
-        }
-    }
-    i = pos - min(pos % GRID_SIZE, pos / GRID_SIZE) * (GRID_SIZE + 1);
-    for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE + 1) {
-        if (grid[i] == 1 && i != pos) {
-            return false;
-        }
-        if (i % GRID_SIZE == GRID_SIZE - 1)
-            break;
-    }
-    i = pos - min((GRID_SIZE - (pos % GRID_SIZE) - 1), (pos / GRID_SIZE)) * (GRID_SIZE - 1);
-    for (; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE - 1) {
-        if (grid[i] == 1 && i != pos) {
-            return false;
-        }
-        if (i % GRID_SIZE == 0)
-            break;
-    }
+    //all satisfy
     return true;
 }
 
@@ -177,7 +192,7 @@ void backtrack(int level) {
     for (; pos < (level + 1) * GRID_SIZE; ++pos) {
         if (grid[pos] == 0) {
             grid[pos] = 1;
-            if (constraint_check(pos)) {
+            if (constraint_check()) {
                 backtrack(level + 1);
                 grid[pos] = 0;
             } else
@@ -191,9 +206,9 @@ int main(int argc, char *argv[]) {
     GRID_SIZE = input;
     OBJ_LEVEL = input;
     grid = new int[GRID_SIZE * GRID_SIZE];
-//    backtrack(0);
-//    grid[get_pos(0, 3)] = 1;
-    fc_method(0);
+    backtrack(0);
+//    grid[ge   t_pos(0, 3)] = 1;
+//    fc_method(0);
     printf("sum: %d\n", int(ans.size()));
     int n = 8;
     return 0;
