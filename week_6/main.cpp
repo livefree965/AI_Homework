@@ -17,7 +17,8 @@ int get_pos(const int &x, const int &y) {
     return x * GRID_SIZE + y;
 }
 
-void show_grid() {
+void show_grid(int *grid) {
+    printf("-----------------------------------------\n");
     for (int i = 0; i < GRID_SIZE; ++i) {
         for (int j = 0; j < GRID_SIZE; ++j) {
             printf("%c  ", grid[i * GRID_SIZE + j] == 1 ? 'A' : 'O');
@@ -206,10 +207,12 @@ int main(int argc, char *argv[]) {
     GRID_SIZE = input;
     OBJ_LEVEL = input;
     grid = new int[GRID_SIZE * GRID_SIZE];
-    backtrack(0);
+//    backtrack(0);
 //    grid[ge   t_pos(0, 3)] = 1;
-//    fc_method(0);
+    fc_method(0);
     printf("sum: %d\n", int(ans.size()));
-    int n = 8;
+    for (int i = 0; i < 3; ++i) {
+        show_grid(ans[i]);
+    }
     return 0;
 }
