@@ -23,3 +23,27 @@ model.add_transition(s2, s3)
 model.add_transition(s3, s4)
 model.add_transition(s3, s5)
 model.bake()
+res = 0
+for i in ['T', 'F']:
+    for j in ['T', 'F']:
+        for k in ['T', 'F']:
+            res += model.probability([i, j, k, 'T', 'T'])
+print("P['J','M']", res)
+print("P['B','E','A','J','M']", model.probability(['T', 'T', 'T', 'T', 'T']))
+res = 0
+all_res = 0
+for i in ['T', 'F']:
+    for j in ['T', 'F']:
+        tmp = model.probability([i, j, 'T', 'T', 'F'])
+        res += tmp
+        all_res += tmp + model.probability([i, j, 'F', 'T', 'F'])
+print("P['A'|'J','M']", res / all_res)
+res = 0
+all_res = 0
+for i in ['T', 'F']:
+    for j in ['T', 'F']:
+        tmp = model.probability(['F', i, j, 'T', 'F'])
+        res += tmp
+        all_res += tmp + model.probability(['F', i, j, 'T', 'T']) + model.probability(
+            ['F', i, j, 'F', 'T']) + model.probability(['F', i, j, 'F', 'F'])
+print("P['J','-M'|'-B']", res / all_res)
