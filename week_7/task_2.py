@@ -34,9 +34,9 @@ res = 0
 all_res = 0
 for i in ['T', 'F']:
     for j in ['T', 'F']:
-        tmp = model.probability([i, j, 'T', 'T', 'F'])
+        tmp = model.probability([i, j, 'T', 'T', 'T'])
         res += tmp
-        all_res += tmp + model.probability([i, j, 'F', 'T', 'F'])
+        all_res += tmp + model.probability([i, j, 'F', 'T', 'T'])
 print("P['A'|'J','M']", res / all_res)
 res = 0
 all_res = 0
