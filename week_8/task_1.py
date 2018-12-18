@@ -78,33 +78,28 @@ class Node:
         tmp_list = Util.get_union(self.var_list, factor.var_list)
         new_list = []
         new_mark = []
+        len_key = len(tmp_list)
         for var in tmp_list:
-            new_list.append(var)
             if var in self.var_list and var in factor.var_list:
                 new_mark.append(0)
             elif var in self.var_list:
                 new_mark.append(1)
             else:
                 new_mark.append(2)
+        new_list = tmp_list
         new_cpt = {}
-        for key_1 in self.cpt.keys():
-            for key_2 in factor.cpt.keys():
-                matched = True
-                tmp_key = ''
-                for i in range(len(new_list)):
-                    if new_mark[i] == 0:
-                        if key_1[self.var_list.index(new_list[i])] == key_2[factor.var_list.index(new_list[i])]:
-                            tmp_key += key_1[self.var_list.index(new_list[i])]
-                        else:
-                            matched = False
-                            break
-                    elif new_mark[i] == 1:
-                        tmp_key += key_1[self.var_list.index(new_list[i])]
-                    else:
-                        tmp_key += key_2[factor.var_list.index(new_list[i])]
-                if not matched:
-                    continue
-                new_cpt[tmp_key] = self.cpt[key_1] * factor.cpt[key_2]
+
+        left_index = [tmp_list.index(i) for i in self.var_list]
+        right_index = [tmp_list.index(i) for i in factor.var_list]
+        for i in range(pow(2, len_key)):
+            tmp_key = Util.to_binary(i, len_key)
+            left_key = ''
+            right_key = ''
+            for key_pos in left_index:
+                left_key += tmp_key[key_pos]
+            for key_pos in right_index:
+                right_key += tmp_key[key_pos]
+            new_cpt[tmp_key] = self.cpt[left_key] * factor.cpt[right_key]
         '''function that multiplies with another factor'''
         # Your code here
         new_node = Node('f' + str(new_list), new_list)
