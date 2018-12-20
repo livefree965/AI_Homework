@@ -143,16 +143,26 @@ double value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
 
 void deploy_chess(int grid[GRID_SIZE][GRID_SIZE], Action &action) {
     int newx, newy;
-    newx = action.x;
-    newy = action.y;
-    for (int i = 0; i < action.change_way.size(); ++i) {
-        //遍历所有可以翻转的方向
-        while (grid[newx][newy] != action.color) {
-            grid[newx][newy] = action.color;
-            newx += action.change_way[i].first;
-            newy += action.change_way[i].second;
+    grid[action.x][action.y] = action.color;
+    for (int x_dir = -1; x_dir < 2; x_dir++) {
+        for (int y_dir = -1; y_dir < 2; y_dir++) {
+            newx = action.x;
+            newy = action.y;
+            if (x_dir == 0 && y_dir == 0)
+                continue;
+            while (grid[newx][newy] != 0 && newx >= 0 && newx < 8 && newy >= 0 && newy < 8) {
+                newx += x_dir;
+                newy += y_dir;
+                if (grid[newx][newy] == action.color) {
+                    while (newx != action.x) {
+                        newx -= x_dir;
+                        newy -= y_dir;
+                        grid[newx][newy] = action.color;
+                    }
+                    break;
+                }
+            }
         }
-        //不断往该方向翻转，直到遇到另一端
     }
 };
 
@@ -220,8 +230,13 @@ bool show_grid(int grid[GRID_SIZE][GRID_SIZE], vector <Action> *potent = nullptr
 };
 
 extern "C" {
+void deploy(int *pos);
 bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player);
 };
+
+void deploy(int *pos) {
+
+}
 
 bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
     if (player == MAXPLAYER) {
