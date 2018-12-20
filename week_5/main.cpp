@@ -19,6 +19,20 @@ int weights2[6][6] = {{50,  -10, 0, 0, -10, 50},
                       {0,   0,   0, 0, 0,   0},
                       {-10, -20, 0, 0, -20, -10},
                       {50,  -10, 0, 0, -10, 50}};
+int python_grid[8][8] = {{0, 0, 0, 0,  0,  0, 0, 0},
+                         {0, 0, 0, 0,  0,  0, 0, 0},
+                         {0, 0, 0, 0,  0,  0, 0, 0},
+                         {0, 0, 0, 1,  -1, 0, 0, 0},
+                         {0, 0, 0, -1, 1,  0, 0, 0},
+                         {0, 0, 0, 0,  0,  0, 0, 0},
+                         {0, 0, 0, 0,  0,  0, 0, 0},
+                         {0, 0, 0, 0,  0,  0, 0, 0}};
+
+//python_grid[3][3]=-1;
+//python_grid[3][4]=1;
+//python_grid[4][3]=1;
+//python_grid[4][4]=-1;
+int python_decide[2];
 
 struct Action {
     int x; //x,y 为坐标
@@ -143,6 +157,7 @@ double value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
 
 void deploy_chess(int grid[GRID_SIZE][GRID_SIZE], Action &action) {
     int newx, newy;
+    cout << "now pos" << action.x << " " << action.y << endl;
     grid[action.x][action.y] = action.color;
     for (int x_dir = -1; x_dir < 2; x_dir++) {
         for (int y_dir = -1; y_dir < 2; y_dir++) {
@@ -150,17 +165,20 @@ void deploy_chess(int grid[GRID_SIZE][GRID_SIZE], Action &action) {
             newy = action.y;
             if (x_dir == 0 && y_dir == 0)
                 continue;
+            newx += x_dir;
+            newy += y_dir;
             while (grid[newx][newy] != 0 && newx >= 0 && newx < 8 && newy >= 0 && newy < 8) {
-                newx += x_dir;
-                newy += y_dir;
                 if (grid[newx][newy] == action.color) {
-                    while (newx != action.x) {
+                    while (newx != action.x || newy != action.y) {
                         newx -= x_dir;
                         newy -= y_dir;
                         grid[newx][newy] = action.color;
+                        cout << "change " << newx << " " << newy << endl;
                     }
                     break;
                 }
+                newx += x_dir;
+                newy += y_dir;
             }
         }
     }
@@ -232,10 +250,32 @@ bool show_grid(int grid[GRID_SIZE][GRID_SIZE], vector <Action> *potent = nullptr
 extern "C" {
 void deploy(int *pos);
 bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player);
+void ai_move(int *pos);
+void python_show_grid();
 };
 
-void deploy(int *pos) {
+void python_show_grid(){
+    show_grid(python_grid);
+}
+void ai_move(int *pos) {
+    show_grid(python_grid);
+    int player;
+    if (pos[4] == 1)
+        player = MAXPLAYER;
+    else
+        player = MINPLAYER;
+    bool res = make_move(python_grid, player);
+    pos[2] = python_decide[0];
+    pos[3] = python_decide[1];
+    if (!res)
+        pos[2] = -1;
+}
 
+void deploy(int *pos) {
+    if (pos[0] != -1) {
+        Action action(pos[0], pos[1], -pos[4]);
+        deploy_chess(python_grid, action);
+    }
 }
 
 bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
@@ -257,6 +297,8 @@ bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
             //如果取到了更优的结果，更新
         }
         deploy_chess(grid, choices[ai_choice]); //正式采取这个下棋
+        python_decide[0] = choices[ai_choice].x;
+        python_decide[1] = choices[ai_choice].y;
     } else {
         vector <Action> choices = deploy_option(grid, WHITE);
         if (choices.empty())
@@ -273,7 +315,10 @@ bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
                 min_alpha = alpha;
             }
         }
+        cout << choices[ai_choice].x << " " << choices[ai_choice].y << endl;
         deploy_chess(grid, choices[ai_choice]);
+        python_decide[0] = choices[ai_choice].x;
+        python_decide[1] = choices[ai_choice].y;
         cout << "my move:" << endl;
         cout << choices[ai_choice].x << " " << choices[ai_choice].y << endl;
     }
@@ -295,6 +340,8 @@ bool random_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
         int tmp[GRID_SIZE][GRID_SIZE];
         int ai_choice = rand() % choices.size();
         deploy_chess(grid, choices[ai_choice]);
+        python_decide[0] = choices[ai_choice].x;
+        python_decide[1] = choices[ai_choice].y;
     }
     return true;
 };
