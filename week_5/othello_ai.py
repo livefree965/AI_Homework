@@ -1,7 +1,7 @@
 import othello_module
 from ctypes import *
 
-res = cdll.LoadLibrary("main.dll")
+res = cdll.LoadLibrary("C:\\Users\\xieji\\Documents\\GitHub\\AI_Homework\\week_5\\main.dll")
 grid = (c_int * 36)()
 
 
@@ -62,6 +62,7 @@ class AI:
             for j in range(6):
                 if self.game_state.board[i][j] == ' ' and grid[i][j] != 0:
                     self.game_state.drop_piece(i, j)
+                    print(i, j)
 
     def _make_move_M(self) -> None:
 
@@ -87,6 +88,7 @@ class AI:
             for j in range(6):
                 if self.game_state.board[i][j] == ' ' and grid[i * 6 + j] != 0:
                     self.game_state.drop_piece(i, j)
+                    print(i, j)
 
     def _find_options(self) -> None:
         self._options = []

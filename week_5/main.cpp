@@ -6,7 +6,7 @@
 
 #define WHITE 1
 #define BLACK -1
-#define GRID_SIZE 6
+#define GRID_SIZE 8
 #define MAXPLAYER -1
 #define MINPLAYER 1
 int SEARCH_DEPTH = 1;
@@ -24,7 +24,7 @@ struct Action {
     int x; //x,y 为坐标
     int y;
     int color; //准备下的棋的颜色
-    vector<pair<int, int>> change_way; //下棋后翻转对方的方向
+    vector <pair<int, int>> change_way; //下棋后翻转对方的方向
 
     Action(int x_, int y_, int color_) {
         x = x_;
@@ -43,8 +43,8 @@ int directions[8][2] = {{-1, -1},
                         {1,  1}};
 //一个棋子最多有8个方向进行翻转
 
-vector<Action> deploy_option(int grid[GRID_SIZE][GRID_SIZE], int color) {
-    vector<Action> res;
+vector <Action> deploy_option(int grid[GRID_SIZE][GRID_SIZE], int color) {
+    vector <Action> res;
     int oppoent_color;
     if (color == WHITE)
         oppoent_color = BLACK;
@@ -96,9 +96,9 @@ double value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
 
     //曼哈顿乘积
     double res = 0;
-    for (int i = 0; i < 6; ++i) {
-        for (int j = 0; j < 6; ++j) {
-            res -= grid[i][j] * abs((i - 2.5) * (j - 2.5));
+    for (int i = 0; i < GRID_SIZE; ++i) {
+        for (int j = 0; j < GRID_SIZE; ++j) {
+            res -= grid[i][j] * abs((i - 3.5) * (j - 3.5));
         }
     }
 
@@ -163,11 +163,11 @@ double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double
     //到达探索深度，直接返回棋盘评估值
     int tmp[GRID_SIZE][GRID_SIZE];  //新建临时棋盘
     if (player == MAXPLAYER) {
-        vector<Action> choices = deploy_option(grid, BLACK);    //查找是否有行动可选择
+        vector <Action> choices = deploy_option(grid, BLACK);    //查找是否有行动可选择
         if (choices.empty())
             return value_grid(grid);
         for (auto &choice : choices) {
-            memcpy(tmp, grid, 36 * sizeof(int));
+            memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
             deploy_chess(tmp, choice);     //tmp是grid的副本
             alpha = max(alpha, alphabeta(tmp, depth - 1, alpha, beta, MINPLAYER));//递归获得下一层的alpha并取最大值
             if (beta <= alpha)
@@ -175,12 +175,12 @@ double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double
         }
         return alpha;
     } else {
-        vector<Action> choices = deploy_option(grid, WHITE);
+        vector <Action> choices = deploy_option(grid, WHITE);
         if (choices.empty()) {
             return value_grid(grid);
         }
         for (auto &choice : choices) {
-            memcpy(tmp, grid, 36 * sizeof(int));
+            memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
             deploy_chess(tmp, choice);
             beta = min(beta, alphabeta(tmp, depth - 1, alpha, beta, MAXPLAYER));
             if (beta <= alpha)
@@ -190,7 +190,7 @@ double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double
     }
 }
 
-bool show_grid(int grid[GRID_SIZE][GRID_SIZE], vector<Action> *potent = nullptr) {
+bool show_grid(int grid[GRID_SIZE][GRID_SIZE], vector <Action> *potent = nullptr) {
     int tmp[GRID_SIZE][GRID_SIZE];
     for (int i = 0; i < GRID_SIZE; ++i) {
         for (int j = 0; j < GRID_SIZE; ++j) {
@@ -225,14 +225,14 @@ bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player);
 
 bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
     if (player == MAXPLAYER) {
-        vector<Action> choices = deploy_option(grid, BLACK);    //获取可以下棋的选择点
+        vector <Action> choices = deploy_option(grid, BLACK);    //获取可以下棋的选择点
         if (choices.empty())    //查看是否可以下棋，不可以则返回false
             return false;
         int tmp[GRID_SIZE][GRID_SIZE];
         int ai_choice = 0;
         double max_alpha = -10000;
         for (int i = 0; i < choices.size(); ++i) {
-            memcpy(tmp, grid, 36 * sizeof(int));
+            memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
             deploy_chess(tmp, choices[i]);  //取其中一个下棋点下棋
             double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, MINPLAYER);  //搜索返回预期的局面的结果
             if (max_alpha < alpha) {
@@ -243,14 +243,14 @@ bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
         }
         deploy_chess(grid, choices[ai_choice]); //正式采取这个下棋
     } else {
-        vector<Action> choices = deploy_option(grid, WHITE);
+        vector <Action> choices = deploy_option(grid, WHITE);
         if (choices.empty())
             return false;
         int tmp[GRID_SIZE][GRID_SIZE];
         int ai_choice = 0;
         double min_alpha = 10000;
         for (int i = 0; i < choices.size(); ++i) {
-            memcpy(tmp, grid, 36 * sizeof(int));
+            memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
             deploy_chess(tmp, choices[i]);
             double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, MAXPLAYER);
             if (min_alpha > alpha) {
@@ -259,20 +259,22 @@ bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
             }
         }
         deploy_chess(grid, choices[ai_choice]);
+        cout << "my move:" << endl;
+        cout << choices[ai_choice].x << " " << choices[ai_choice].y << endl;
     }
     return true;
 };
 
 bool random_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
     if (player == MAXPLAYER) {
-        vector<Action> choices = deploy_option(grid, BLACK);
+        vector <Action> choices = deploy_option(grid, BLACK);
         if (choices.empty())
             return false;
         int tmp[GRID_SIZE][GRID_SIZE];
         int ai_choice = rand() % choices.size();
         deploy_chess(grid, choices[ai_choice]);
     } else {
-        vector<Action> choices = deploy_option(grid, WHITE);
+        vector <Action> choices = deploy_option(grid, WHITE);
         if (choices.empty())
             return false;
         int tmp[GRID_SIZE][GRID_SIZE];
@@ -283,7 +285,7 @@ bool random_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
 };
 
 bool input_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
-    vector<Action> choices;
+    vector <Action> choices;
     if (player == MAXPLAYER)
         choices = deploy_option(grid, BLACK);
     else
@@ -302,15 +304,15 @@ bool input_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
 }
 
 void init_grid(int grid[GRID_SIZE][GRID_SIZE]) {
-    grid[2][2] = 1;
-    grid[2][3] = -1;
-    grid[3][2] = -1;
     grid[3][3] = 1;
+    grid[3][4] = -1;
+    grid[4][3] = -1;
+    grid[4][4] = 1;
 }
 
 
 void show_value(int grid[GRID_SIZE][GRID_SIZE], int player) {
-    vector<Action> choices;
+    vector <Action> choices;
     int tmp[GRID_SIZE][GRID_SIZE];
     if (player == MAXPLAYER)
         choices = deploy_option(grid, BLACK);
@@ -325,7 +327,7 @@ void show_value(int grid[GRID_SIZE][GRID_SIZE], int player) {
     show_grid(grid, &choices);
     char now_char = 'A';
     for (auto &choice : choices) {
-        memcpy(tmp, grid, 36 * sizeof(int));
+        memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
         deploy_chess(tmp, choice);
         double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, oppent);
         cout << now_char << " :" << alpha << endl;
@@ -346,7 +348,7 @@ int human_black() {
         cout << "---------------------------------------------------------" << endl;
         cout << "wait AI and now value --------------------------------" << endl;
         show_value(grid, MINPLAYER);
-        vector<Action> choices = deploy_option(grid, WHITE);
+        vector <Action> choices = deploy_option(grid, WHITE);
         flag += make_move(grid, MINPLAYER);
         cout << "---------------------------------------------------------" << endl;
     };
@@ -362,7 +364,7 @@ int human_white() {
         flag += make_move(grid, MAXPLAYER);
         cout << "ai moved:" << endl;
         show_grid(grid);
-        vector<Action> choices = deploy_option(grid, WHITE);
+        vector <Action> choices = deploy_option(grid, WHITE);
         cout << "human move:" << endl;
         flag += input_move(grid, MINPLAYER);
         show_grid(grid);
@@ -381,13 +383,13 @@ int self_fight() {
 //        cout << "---------------------------------------------------------" << endl;
 //        cout << "wait AI and now value --------------------------------" << endl;
 //        show_value(grid, MINPLAYER);
-        vector<Action> choices = deploy_option(grid, WHITE);
+        vector <Action> choices = deploy_option(grid, WHITE);
         flag += random_move(grid, MINPLAYER);
 //        cout << "---------------------------------------------------------" << endl;
     };
     int black = 0, white = 0;
-    for (int i = 0; i < 6; ++i) {
-        for (int j = 0; j < 6; ++j) {
+    for (int i = 0; i < GRID_SIZE; ++i) {
+        for (int j = 0; j < GRID_SIZE; ++j) {
             if (grid[i][j] == 1)
                 white++;
             else if (grid[i][j] == -1)
