@@ -49,19 +49,60 @@ deploy_pos[0] = -1
 deploy_pos[2] = 0
 deploy_pos[4] = WHITE
 print(chess_board)
-while deploy_pos[0] != -1 or deploy_pos[2] != -1:
-    deploy_pos[4] = BLACK if deploy_pos[4] == WHITE else WHITE
-    ai_2.ai_move(deploy_pos)
-    update_chess(deploy_pos[2], deploy_pos[3], deploy_pos[4])
-    ai_1.deploy(deploy_pos)
-    print('deploy pos', deploy_pos[2], deploy_pos[3])
+
+res = []
+
+
+def ai_auto_play():
+    global chess_board, ai_1, ai_2
+    ai_1.reload()
+    ai_2.reload()
+    chess_board = np.zeros([8, 8])
+    deploy_pos = (c_int * 5)()
+    deploy_pos[0] = 2
+    deploy_pos[1] = 3
+    # ai_1.add(deploy_pos)
+    # print(deploy_pos[2])
+    # ai_1.add(deploy_pos)
+    # print(deploy_pos[2])
+
+    chess_board[3][3] = -1
+    chess_board[3][4] = 1
+    chess_board[4][3] = 1
+    chess_board[4][4] = -1
+    deploy_pos[0] = -1
+    deploy_pos[2] = 0
+    deploy_pos[4] = WHITE
     print(chess_board)
-    deploy_pos[0] = deploy_pos[2]
-    deploy_pos[1] = deploy_pos[3]
-    deploy_pos[4] = BLACK if deploy_pos[4] == WHITE else WHITE
-    ai_1.ai_move(deploy_pos)
-    update_chess(deploy_pos[2], deploy_pos[3], deploy_pos[4])
-    ai_2.deploy(deploy_pos)
-    print('deploy pos', deploy_pos[2], deploy_pos[3])
-    print(chess_board)
-print(np.sum(chess_board))
+    while deploy_pos[0] != -1 or deploy_pos[2] != -1:
+        deploy_pos[4] = BLACK if deploy_pos[4] == WHITE else WHITE
+        ai_2.ai_move(deploy_pos)
+        update_chess(deploy_pos[2], deploy_pos[3], deploy_pos[4])
+        deploy_pos[0] = deploy_pos[2]
+        deploy_pos[1] = deploy_pos[3]
+        ai_1.deploy(deploy_pos)
+        print('deploy pos', deploy_pos[2], deploy_pos[3])
+        print(chess_board)
+        deploy_pos[0] = deploy_pos[2]
+        deploy_pos[1] = deploy_pos[3]
+        deploy_pos[4] = BLACK if deploy_pos[4] == WHITE else WHITE
+        ai_1.ran_move(deploy_pos)
+        update_chess(deploy_pos[2], deploy_pos[3], deploy_pos[4])
+        deploy_pos[0] = deploy_pos[2]
+        deploy_pos[1] = deploy_pos[3]
+        ai_2.deploy(deploy_pos)
+        print('deploy pos', deploy_pos[2], deploy_pos[3])
+        print(chess_board)
+        deploy_pos[0] = deploy_pos[2]
+        deploy_pos[1] = deploy_pos[3]
+    res.append(np.sum(chess_board))
+    print(np.sum(chess_board))
+
+
+for i in range(300):
+    ai_auto_play()
+count = 0
+for i in range(300):
+    if res[i] > 0:
+        count += 1
+print(count / 300)

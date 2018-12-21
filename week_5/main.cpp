@@ -157,7 +157,7 @@ double value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
 
 void deploy_chess(int grid[GRID_SIZE][GRID_SIZE], Action &action) {
     int newx, newy;
-    cout << "now pos" << action.x << " " << action.y << endl;
+//    cout << "now pos" << action.x << " " << action.y << endl;
     grid[action.x][action.y] = action.color;
     for (int x_dir = -1; x_dir < 2; x_dir++) {
         for (int y_dir = -1; y_dir < 2; y_dir++) {
@@ -173,7 +173,7 @@ void deploy_chess(int grid[GRID_SIZE][GRID_SIZE], Action &action) {
                         newx -= x_dir;
                         newy -= y_dir;
                         grid[newx][newy] = action.color;
-                        cout << "change " << newx << " " << newy << endl;
+//                        cout << "change " << newx << " " << newy << endl;
                     }
                     break;
                 }
@@ -247,16 +247,39 @@ bool show_grid(int grid[GRID_SIZE][GRID_SIZE], vector <Action> *potent = nullptr
     }
 };
 
+bool random_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
+    if (player == MAXPLAYER) {
+        vector <Action> choices = deploy_option(grid, BLACK);
+        if (choices.empty())
+            return false;
+        int tmp[GRID_SIZE][GRID_SIZE];
+        int ai_choice = rand() % choices.size();
+        deploy_chess(grid, choices[ai_choice]);
+    } else {
+        vector <Action> choices = deploy_option(grid, WHITE);
+        if (choices.empty())
+            return false;
+        int tmp[GRID_SIZE][GRID_SIZE];
+        int ai_choice = rand() % choices.size();
+        deploy_chess(grid, choices[ai_choice]);
+        python_decide[0] = choices[ai_choice].x;
+        python_decide[1] = choices[ai_choice].y;
+    }
+    return true;
+};
 extern "C" {
 void deploy(int *pos);
 bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player);
 void ai_move(int *pos);
+void ran_move(int *pos);
 void python_show_grid();
+void reload();
 };
 
-void python_show_grid(){
+void python_show_grid() {
     show_grid(python_grid);
 }
+
 void ai_move(int *pos) {
     show_grid(python_grid);
     int player;
@@ -271,11 +294,37 @@ void ai_move(int *pos) {
         pos[2] = -1;
 }
 
+void ran_move(int *pos) {
+    show_grid(python_grid);
+    int player;
+    if (pos[4] == 1)
+        player = MAXPLAYER;
+    else
+        player = MINPLAYER;
+    bool res = random_move(python_grid, player);
+    pos[2] = python_decide[0];
+    pos[3] = python_decide[1];
+    if (!res)
+        pos[2] = -1;
+}
+
 void deploy(int *pos) {
     if (pos[0] != -1) {
         Action action(pos[0], pos[1], -pos[4]);
         deploy_chess(python_grid, action);
     }
+}
+
+void reload() {
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            python_grid[i][j] = 0;
+        }
+    }
+    python_grid[3][3] = 1;
+    python_grid[3][4] = -1;
+    python_grid[4][3] = -1;
+    python_grid[4][4] = 1;
 }
 
 bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
@@ -325,26 +374,6 @@ bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
     return true;
 };
 
-bool random_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
-    if (player == MAXPLAYER) {
-        vector <Action> choices = deploy_option(grid, BLACK);
-        if (choices.empty())
-            return false;
-        int tmp[GRID_SIZE][GRID_SIZE];
-        int ai_choice = rand() % choices.size();
-        deploy_chess(grid, choices[ai_choice]);
-    } else {
-        vector <Action> choices = deploy_option(grid, WHITE);
-        if (choices.empty())
-            return false;
-        int tmp[GRID_SIZE][GRID_SIZE];
-        int ai_choice = rand() % choices.size();
-        deploy_chess(grid, choices[ai_choice]);
-        python_decide[0] = choices[ai_choice].x;
-        python_decide[1] = choices[ai_choice].y;
-    }
-    return true;
-};
 
 bool input_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
     vector <Action> choices;

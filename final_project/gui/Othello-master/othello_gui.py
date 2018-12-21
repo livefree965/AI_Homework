@@ -177,23 +177,49 @@ class OthelloGUI:
             # me
             global now_turn
             if now_turn == 1:
+                try:
+                    self._game_state.move(row, col)
+                except:
+                    raise EOFError
                 deploy_pos[4] = BLACK if deploy_pos[4] == WHITE else WHITE
                 print('ai_move')
-                ai_2.ai_move(deploy_pos)
+                deploy_pos[2] = row
+                deploy_pos[3] = col
+                # ai_2.ai_move(deploy_pos)
                 update_chess(deploy_pos[2], deploy_pos[3], deploy_pos[4])
                 deploy_pos[0] = deploy_pos[2]
                 deploy_pos[1] = deploy_pos[3]
                 ai_1.deploy(deploy_pos)
                 print('deploy pos', deploy_pos[2], deploy_pos[3])
-                self._game_state.move(deploy_pos[2], deploy_pos[3])
+                # self._game_state.move(deploy_pos[2], deploy_pos[3])
                 print(chess_board)
                 deploy_pos[0] = deploy_pos[2]
                 deploy_pos[1] = deploy_pos[3]
                 now_turn = 0
                 print('ai1')
                 ai_1.python_show_grid()
-                print('ai2')
-                ai_2.python_show_grid()
+                # print('ai2')
+                # ai_2.python_show_grid()
+
+                # deploy_pos[4] = BLACK if deploy_pos[4] == WHITE else WHITE
+                # print('ai_move')
+                # ai_2.ai_move(deploy_pos)
+                # update_chess(deploy_pos[2], deploy_pos[3], deploy_pos[4])
+                # deploy_pos[0] = deploy_pos[2]
+                # deploy_pos[1] = deploy_pos[3]
+                # ai_1.deploy(deploy_pos)
+                # print('deploy pos', deploy_pos[2], deploy_pos[3])
+                # self._game_state.move(deploy_pos[2], deploy_pos[3])
+                # print(chess_board)
+                # deploy_pos[0] = deploy_pos[2]
+                # deploy_pos[1] = deploy_pos[3]
+                # now_turn = 0
+                # print('ai1')
+                # ai_1.python_show_grid()
+                # print('ai2')
+                # ai_2.python_show_grid()
+
+
             else:
                 deploy_pos[4] = BLACK if deploy_pos[4] == WHITE else WHITE
                 ai_1.ai_move(deploy_pos)
@@ -202,7 +228,8 @@ class OthelloGUI:
                 deploy_pos[1] = deploy_pos[3]
                 ai_2.deploy(deploy_pos)
                 print('deploy pos', deploy_pos[2], deploy_pos[3])
-                self._game_state.move(deploy_pos[2], deploy_pos[3])
+                if deploy_pos[2] != -1:
+                    self._game_state.move(deploy_pos[2], deploy_pos[3])
                 print(chess_board)
                 deploy_pos[0] = deploy_pos[2]
                 deploy_pos[1] = deploy_pos[3]
