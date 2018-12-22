@@ -82,7 +82,7 @@ def ai_auto_play():
         deploy_pos[1] = deploy_pos[3]
         ai_1.deploy(deploy_pos)
         print('deploy pos', deploy_pos[2], deploy_pos[3])
-        print(chess_board)
+        # print(chess_board)
         deploy_pos[0] = deploy_pos[2]
         deploy_pos[1] = deploy_pos[3]
         deploy_pos[4] = BLACK if deploy_pos[4] == WHITE else WHITE
@@ -92,17 +92,17 @@ def ai_auto_play():
         deploy_pos[1] = deploy_pos[3]
         ai_2.deploy(deploy_pos)
         print('deploy pos', deploy_pos[2], deploy_pos[3])
-        print(chess_board)
+        # print(chess_board)
         deploy_pos[0] = deploy_pos[2]
         deploy_pos[1] = deploy_pos[3]
     res.append(np.sum(chess_board))
     print(np.sum(chess_board))
 
 
-for i in range(300):
+for i in range(20):
     ai_auto_play()
 count = 0
-for i in range(300):
+for i in range(20):
     if res[i] > 0:
         count += 1
-print(count / 300)
+print(count / 10)

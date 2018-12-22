@@ -9,16 +9,16 @@
 #define GRID_SIZE 8
 #define MAXPLAYER -1
 #define MINPLAYER 1
-int SEARCH_DEPTH = 1;
+int SEARCH_DEPTH = 6;
 using namespace std;
 
 int METHOD_TRUN = 20;
-int weights2[6][6] = {{50,  -10, 0, 0, -10, 50},
-                      {-10, -20, 0, 0, -20, -10},
-                      {0,   0,   0, 0, 0,   0},
-                      {0,   0,   0, 0, 0,   0},
-                      {-10, -20, 0, 0, -20, -10},
-                      {50,  -10, 0, 0, -10, 50}};
+int weights2[8][8] = {{50,  -10, 0,0,0 ,0, -10, 50},
+                      {-10, -20, 0, 0,0,0, -20, -10},
+                      {0,   0,   0,0,0, 0, 0,   0},
+                      {0,   0,   0, 0,0,0, 0,   0},
+                      {-10, -20, 0, 0,0,0, -20, -10},
+                      {50,  -10, 0, 0,0,0, -10, 50}};
 int python_grid[8][8] = {{0, 0, 0, 0,  0,  0, 0, 0},
                          {0, 0, 0, 0,  0,  0, 0, 0},
                          {0, 0, 0, 0,  0,  0, 0, 0},
@@ -281,7 +281,7 @@ void python_show_grid() {
 }
 
 void ai_move(int *pos) {
-    show_grid(python_grid);
+//    show_grid(python_grid);
     int player;
     if (pos[4] == 1)
         player = MAXPLAYER;
@@ -295,7 +295,7 @@ void ai_move(int *pos) {
 }
 
 void ran_move(int *pos) {
-    show_grid(python_grid);
+//    show_grid(python_grid);
     int player;
     if (pos[4] == 1)
         player = MAXPLAYER;
