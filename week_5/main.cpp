@@ -3,22 +3,23 @@
 #include <set>
 #include <memory.h>
 #include <random>
+#include <pthread.h>
+#include "value_funciton.h"
 
 #define WHITE 1
 #define BLACK -1
-#define GRID_SIZE 8
 #define MAXPLAYER -1
 #define MINPLAYER 1
 int SEARCH_DEPTH = 6;
 using namespace std;
 
 int METHOD_TRUN = 20;
-int weights2[8][8] = {{50,  -10, 0,0,0 ,0, -10, 50},
-                      {-10, -20, 0, 0,0,0, -20, -10},
-                      {0,   0,   0,0,0, 0, 0,   0},
-                      {0,   0,   0, 0,0,0, 0,   0},
-                      {-10, -20, 0, 0,0,0, -20, -10},
-                      {50,  -10, 0, 0,0,0, -10, 50}};
+int weights2[8][8] = {{50,  -10, 0, 0, 0, 0, -10, 50},
+                      {-10, -20, 0, 0, 0, 0, -20, -10},
+                      {0,   0,   0, 0, 0, 0, 0,   0},
+                      {0,   0,   0, 0, 0, 0, 0,   0},
+                      {-10, -20, 0, 0, 0, 0, -20, -10},
+                      {50,  -10, 0, 0, 0, 0, -10, 50}};
 int python_grid[8][8] = {{0, 0, 0, 0,  0,  0, 0, 0},
                          {0, 0, 0, 0,  0,  0, 0, 0},
                          {0, 0, 0, 0,  0,  0, 0, 0},
@@ -38,12 +39,44 @@ struct Action {
     int x; //x,y 为坐标
     int y;
     int color; //准备下的棋的颜色
-    vector <pair<int, int>> change_way; //下棋后翻转对方的方向
+    vector<pair<int, int>> change_way; //下棋后翻转对方的方向
 
     Action(int x_, int y_, int color_) {
         x = x_;
         y = y_;
         color = color_;
+    }
+};
+
+struct AlphaPara {
+    int (*grid)[GRID_SIZE];
+    int depth;
+    double alpha;
+    double beta;
+    int player;
+    double result;
+
+    AlphaPara(int (*grid_)[GRID_SIZE], int depth_, double alpha_, double beta_, int player_) {
+        grid = grid_;
+        depth = depth_;
+        alpha = alpha_;
+        beta = beta_;
+        player = player_;
+    }
+};
+
+struct AlphaTree {
+    int (*GRID)[GRID_SIZE];
+    int player;
+    int alpha;
+    int beta;
+    vector<struct AlphaTree *> children;
+
+    AlphaTree(int(*grid_)[GRID_SIZE], int player_, int alpha_, int beta_) {
+        GRID = grid_;
+        player = player_;
+        alpha = alpha_;
+        beta = beta_;
     }
 };
 
@@ -57,8 +90,8 @@ int directions[8][2] = {{-1, -1},
                         {1,  1}};
 //一个棋子最多有8个方向进行翻转
 
-vector <Action> deploy_option(int grid[GRID_SIZE][GRID_SIZE], int color) {
-    vector <Action> res;
+vector<Action> deploy_option(int grid[GRID_SIZE][GRID_SIZE], int color) {
+    vector<Action> res;
     int oppoent_color;
     if (color == WHITE)
         oppoent_color = BLACK;
@@ -99,61 +132,6 @@ vector <Action> deploy_option(int grid[GRID_SIZE][GRID_SIZE], int color) {
     return res;
 };
 
-double value_grid(int grid[GRID_SIZE][GRID_SIZE]) {
-    //落子数
-//    double res = 0;
-//    for (int i = 0; i < 6; ++i) {
-//        for (int j = 0; j < 6; ++j) {
-//            res -= grid[i][j];
-//        }
-//    }
-
-    //曼哈顿乘积
-    double res = 0;
-    for (int i = 0; i < GRID_SIZE; ++i) {
-        for (int j = 0; j < GRID_SIZE; ++j) {
-            res -= grid[i][j] * abs((i - 3.5) * (j - 3.5));
-        }
-    }
-
-    //固定权重
-//    double res = 0;
-//    for (int i = 0; i < 6; ++i) {
-//        for (int j = 0; j < 6; ++j) {
-//            res -= grid[i][j] * weights2[i][j];
-//        }
-//    }
-
-    //动态权重
-//    double res = 0;
-//    int steps = 0;
-//    int after_res = 0;
-//    for (int i = 0; i < 6; ++i) {
-//        for (int j = 0; j < 6; ++j) {
-//            if (grid[i][j] != 0) {
-//                steps++;
-//                after_res -= grid[i][j];
-//            }
-//        }
-//    }
-//    if (steps > METHOD_TRUN)
-//        return after_res;
-//    else {
-//        for (int i = 0; i < 6; ++i) {
-//            for (int j = 0; j < 6; ++j) {
-//                if (weights2[i][j] == 50) {
-//                    res -= grid[i][j] * (70 - steps);
-//                } else if (weights2[i][j] == -20)
-//                    res -= grid[i][j] * (-50 + steps);
-//                else if (weights2[i][j] == -10)
-//                    res -= grid[i][j] * (-40 + steps);
-//            }
-//        }
-//    }
-//    res += deploy_option(grid, BLACK).size();
-    return res;
-}
-
 
 void deploy_chess(int grid[GRID_SIZE][GRID_SIZE], Action &action) {
     int newx, newy;
@@ -191,7 +169,7 @@ double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double
     //到达探索深度，直接返回棋盘评估值
     int tmp[GRID_SIZE][GRID_SIZE];  //新建临时棋盘
     if (player == MAXPLAYER) {
-        vector <Action> choices = deploy_option(grid, BLACK);    //查找是否有行动可选择
+        vector<Action> choices = deploy_option(grid, BLACK);    //查找是否有行动可选择
         if (choices.empty())
             return value_grid(grid);
         for (auto &choice : choices) {
@@ -203,7 +181,7 @@ double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double
         }
         return alpha;
     } else {
-        vector <Action> choices = deploy_option(grid, WHITE);
+        vector<Action> choices = deploy_option(grid, WHITE);
         if (choices.empty()) {
             return value_grid(grid);
         }
@@ -218,7 +196,19 @@ double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double
     }
 }
 
-bool show_grid(int grid[GRID_SIZE][GRID_SIZE], vector <Action> *potent = nullptr) {
+void *alphabeta_thread(void *arg) {
+    AlphaPara *params = (AlphaPara *) arg;
+    int (*grid)[GRID_SIZE] = params->grid;
+    int depth = params->depth;
+    double alpha = params->alpha;
+    double beta = params->beta;
+    int player = params->player;
+    params->result = alphabeta(grid, depth, alpha, beta, player);
+    pthread_exit(NULL);
+
+}
+
+bool show_grid(int grid[GRID_SIZE][GRID_SIZE], vector<Action> *potent = nullptr) {
     int tmp[GRID_SIZE][GRID_SIZE];
     for (int i = 0; i < GRID_SIZE; ++i) {
         for (int j = 0; j < GRID_SIZE; ++j) {
@@ -249,14 +239,14 @@ bool show_grid(int grid[GRID_SIZE][GRID_SIZE], vector <Action> *potent = nullptr
 
 bool random_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
     if (player == MAXPLAYER) {
-        vector <Action> choices = deploy_option(grid, BLACK);
+        vector<Action> choices = deploy_option(grid, BLACK);
         if (choices.empty())
             return false;
         int tmp[GRID_SIZE][GRID_SIZE];
         int ai_choice = rand() % choices.size();
         deploy_chess(grid, choices[ai_choice]);
     } else {
-        vector <Action> choices = deploy_option(grid, WHITE);
+        vector<Action> choices = deploy_option(grid, WHITE);
         if (choices.empty())
             return false;
         int tmp[GRID_SIZE][GRID_SIZE];
@@ -328,55 +318,31 @@ void reload() {
 }
 
 bool make_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
-    if (player == MAXPLAYER) {
-        vector <Action> choices = deploy_option(grid, BLACK);    //获取可以下棋的选择点
-        if (choices.empty())    //查看是否可以下棋，不可以则返回false
-            return false;
-        int tmp[GRID_SIZE][GRID_SIZE];
-        int ai_choice = 0;
-        double max_alpha = -10000;
-        for (int i = 0; i < choices.size(); ++i) {
-            memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
-            deploy_chess(tmp, choices[i]);  //取其中一个下棋点下棋
-            double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, MINPLAYER);  //搜索返回预期的局面的结果
-            if (max_alpha < alpha) {
-                ai_choice = i;
-                max_alpha = alpha;
-            }
-            //如果取到了更优的结果，更新
+    vector<Action> choices = deploy_option(grid, player);    //获取可以下棋的选择点
+    if (choices.empty())    //查看是否可以下棋，不可以则返回false
+        return false;
+    int tmp[GRID_SIZE][GRID_SIZE];
+    int ai_choice = 0;
+    double now_alpha = player == BLACK ? -10000 : 10000;
+    for (int i = 0; i < choices.size(); ++i) {
+        memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
+        deploy_chess(tmp, choices[i]);  //取其中一个下棋点下棋
+        double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, 1 ^ player);  //搜索返回预期的局面的结果
+        if (now_alpha < alpha) {
+            ai_choice = i;
+            now_alpha = alpha;
         }
-        deploy_chess(grid, choices[ai_choice]); //正式采取这个下棋
-        python_decide[0] = choices[ai_choice].x;
-        python_decide[1] = choices[ai_choice].y;
-    } else {
-        vector <Action> choices = deploy_option(grid, WHITE);
-        if (choices.empty())
-            return false;
-        int tmp[GRID_SIZE][GRID_SIZE];
-        int ai_choice = 0;
-        double min_alpha = 10000;
-        for (int i = 0; i < choices.size(); ++i) {
-            memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
-            deploy_chess(tmp, choices[i]);
-            double alpha = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, MAXPLAYER);
-            if (min_alpha > alpha) {
-                ai_choice = i;
-                min_alpha = alpha;
-            }
-        }
-        cout << choices[ai_choice].x << " " << choices[ai_choice].y << endl;
-        deploy_chess(grid, choices[ai_choice]);
-        python_decide[0] = choices[ai_choice].x;
-        python_decide[1] = choices[ai_choice].y;
-        cout << "my move:" << endl;
-        cout << choices[ai_choice].x << " " << choices[ai_choice].y << endl;
+        //如果取到了更优的结果，更新
     }
+    deploy_chess(grid, choices[ai_choice]); //正式采取这个下棋
+    cout << "my move:" << endl;
+    cout << choices[ai_choice].x << " " << choices[ai_choice].y << endl;
     return true;
 };
 
 
 bool input_move(int grid[GRID_SIZE][GRID_SIZE], int player) {
-    vector <Action> choices;
+    vector<Action> choices;
     if (player == MAXPLAYER)
         choices = deploy_option(grid, BLACK);
     else
@@ -403,7 +369,7 @@ void init_grid(int grid[GRID_SIZE][GRID_SIZE]) {
 
 
 void show_value(int grid[GRID_SIZE][GRID_SIZE], int player) {
-    vector <Action> choices;
+    vector<Action> choices;
     int tmp[GRID_SIZE][GRID_SIZE];
     if (player == MAXPLAYER)
         choices = deploy_option(grid, BLACK);
@@ -439,7 +405,7 @@ int human_black() {
         cout << "---------------------------------------------------------" << endl;
         cout << "wait AI and now value --------------------------------" << endl;
         show_value(grid, MINPLAYER);
-        vector <Action> choices = deploy_option(grid, WHITE);
+        vector<Action> choices = deploy_option(grid, WHITE);
         flag += make_move(grid, MINPLAYER);
         cout << "---------------------------------------------------------" << endl;
     };
@@ -455,12 +421,56 @@ int human_white() {
         flag += make_move(grid, MAXPLAYER);
         cout << "ai moved:" << endl;
         show_grid(grid);
-        vector <Action> choices = deploy_option(grid, WHITE);
+        vector<Action> choices = deploy_option(grid, WHITE);
         cout << "human move:" << endl;
         flag += input_move(grid, MINPLAYER);
         show_grid(grid);
     };
 }
+
+void multi_thread() {
+    int grid[GRID_SIZE][GRID_SIZE] = {0};
+    init_grid(grid);
+    struct AlphaTree root(grid, BLACK, -1000000, 1000000);
+
+}
+
+bool make_move_multithread(int grid[GRID_SIZE][GRID_SIZE], int player) {
+    vector<Action> choices = deploy_option(grid, player);    //获取可以下棋的选择点
+    if (choices.empty())    //查看是否可以下棋，不可以则返回false
+        return false;
+    int tmp[GRID_SIZE][GRID_SIZE];
+    int ai_choice = 0;
+    double now_alpha = player == BLACK ? -10000 : 10000;
+    pthread_t thread_array[15];
+    unsigned int choices_size = choices.size();
+    double *alpha_set = new double[choices_size];
+    AlphaPara **para_set = new AlphaPara *[choices_size];
+    for (int i = 0; i < choices.size(); ++i) {
+        memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
+        deploy_chess(tmp, choices[i]);  //取其中一个下棋点下棋
+        AlphaPara tmp_para(tmp, SEARCH_DEPTH, -1000000, 1000000, 1 ^ player);
+        para_set[i] = &tmp_para;
+        double alpha_1 = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, 1 ^ player);  //搜索返回预期的局面的结果
+        pthread_create(&thread_array[i], NULL, alphabeta_thread, (void *) &tmp_para);
+//        pthread_join(thread_array[i],NULL);
+        //如果取到了更优的结果，更新
+    }
+    for (int i = 0; i < choices_size; ++i) {
+        pthread_join(thread_array[i], NULL);
+    }
+    for (int i = 0; i < choices_size; ++i) {
+        double alpha = para_set[i]->result;
+        if (now_alpha < alpha) {
+            ai_choice = i;
+            now_alpha = alpha;
+        }
+    }
+    deploy_chess(grid, choices[ai_choice]); //正式采取这个下棋
+    cout << "my move:" << endl;
+    cout << choices[ai_choice].x << " " << choices[ai_choice].y << endl;
+    return true;
+};
 
 int self_fight() {
     int grid[GRID_SIZE][GRID_SIZE] = {0};
@@ -468,13 +478,14 @@ int self_fight() {
     int flag = true;
     while (flag) {
         flag = false;
-//        cout << "wait human and now value --------------------------------" << endl;
-//        show_value(grid, MAXPLAYER);
-        flag += make_move(grid, MAXPLAYER);
-//        cout << "---------------------------------------------------------" << endl;
-//        cout << "wait AI and now value --------------------------------" << endl;
-//        show_value(grid, MINPLAYER);
-        vector <Action> choices = deploy_option(grid, WHITE);
+        cout << "wait human and now value --------------------------------" << endl;
+        show_value(grid, MAXPLAYER);
+//        flag += make_move(grid, MAXPLAYER);
+        flag += make_move_multithread(grid, MAXPLAYER);
+        cout << "---------------------------------------------------------" << endl;
+        cout << "wait AI and now value --------------------------------" << endl;
+        show_value(grid, MINPLAYER);
+        vector<Action> choices = deploy_option(grid, WHITE);
         flag += random_move(grid, MINPLAYER);
 //        cout << "---------------------------------------------------------" << endl;
     };
@@ -491,6 +502,7 @@ int self_fight() {
 }
 
 int main() {
+
     self_fight();
     int win = 0, lose = 0, tie = 0, res;
     for (int j = 0; j < 5; ++j) {
