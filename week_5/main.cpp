@@ -491,7 +491,7 @@ int self_fight() {
 }
 
 int main() {
-    human_black();
+    self_fight();
     int win = 0, lose = 0, tie = 0, res;
     for (int j = 0; j < 5; ++j) {
         win = lose = tie = 0;
