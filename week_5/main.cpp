@@ -167,12 +167,12 @@ double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double
         return value_grid(grid);
     }
     //到达探索深度，直接返回棋盘评估值
-    int (*tmp)[GRID_SIZE];  //新建临时棋盘
+    int tmp[GRID_SIZE][GRID_SIZE];  //新建临时棋盘
     vector<Action> choices = deploy_option(grid, player);    //查找是否有行动可选择
     if (choices.empty())
         return value_grid(grid);
     for (auto &choice : choices) {
-        tmp = new int[GRID_SIZE][GRID_SIZE];
+        //tmp = new int[GRID_SIZE][GRID_SIZE];
         memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
         deploy_chess(tmp, choice);     //tmp是grid的副本
         if (player == BLACK)
@@ -458,9 +458,6 @@ bool make_move_multithread(int grid[GRID_SIZE][GRID_SIZE], int player) {
             ai_choice = i;
             now_alpha = alpha;
         }
-    }
-    for (int i = 0; i < choices_size; ++i) {
-        delete[] para_set[i]->grid;
     }
     deploy_chess(grid, choices[ai_choice]); //正式采取这个下棋
     cout << "my move:" << endl;
