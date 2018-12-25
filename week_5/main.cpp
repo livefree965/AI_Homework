@@ -167,33 +167,22 @@ double alphabeta(int grid[GRID_SIZE][GRID_SIZE], int depth, double alpha, double
         return value_grid(grid);
     }
     //到达探索深度，直接返回棋盘评估值
-    int tmp[GRID_SIZE][GRID_SIZE];  //新建临时棋盘
-    if (player == MAXPLAYER) {
-        vector<Action> choices = deploy_option(grid, BLACK);    //查找是否有行动可选择
-        if (choices.empty())
-            return value_grid(grid);
-        for (auto &choice : choices) {
-            memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
-            deploy_chess(tmp, choice);     //tmp是grid的副本
-            alpha = max(alpha, alphabeta(tmp, depth - 1, alpha, beta, MINPLAYER));//递归获得下一层的alpha并取最大值
-            if (beta <= alpha)
-                break;  //剪枝
-        }
-        return alpha;
-    } else {
-        vector<Action> choices = deploy_option(grid, WHITE);
-        if (choices.empty()) {
-            return value_grid(grid);
-        }
-        for (auto &choice : choices) {
-            memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
-            deploy_chess(tmp, choice);
-            beta = min(beta, alphabeta(tmp, depth - 1, alpha, beta, MAXPLAYER));
-            if (beta <= alpha)
-                break;
-        }
-        return beta;
+    int (*tmp)[GRID_SIZE];  //新建临时棋盘
+    vector<Action> choices = deploy_option(grid, player);    //查找是否有行动可选择
+    if (choices.empty())
+        return value_grid(grid);
+    for (auto &choice : choices) {
+        tmp = new int[GRID_SIZE][GRID_SIZE];
+        memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
+        deploy_chess(tmp, choice);     //tmp是grid的副本
+        if (player == BLACK)
+            alpha = max(alpha, alphabeta(tmp, depth - 1, alpha, beta, -player));//递归获得下一层的alpha并取最大值
+        else
+            beta = min(beta, alphabeta(tmp, depth - 1, alpha, beta, -player));
+        if (beta <= alpha)
+            break;  //剪枝
     }
+    return player == BLACK ? alpha : beta;
 }
 
 void *alphabeta_thread(void *arg) {
@@ -435,24 +424,28 @@ void multi_thread() {
 
 }
 
+pthread_t thread_array[15];
+
 bool make_move_multithread(int grid[GRID_SIZE][GRID_SIZE], int player) {
     vector<Action> choices = deploy_option(grid, player);    //获取可以下棋的选择点
     if (choices.empty())    //查看是否可以下棋，不可以则返回false
         return false;
-    int tmp[GRID_SIZE][GRID_SIZE];
+    int (*tmp)[GRID_SIZE];
     int ai_choice = 0;
     double now_alpha = player == BLACK ? -10000 : 10000;
-    pthread_t thread_array[15];
+
     unsigned int choices_size = choices.size();
     double *alpha_set = new double[choices_size];
     AlphaPara **para_set = new AlphaPara *[choices_size];
+    AlphaPara *tmp_para;
     for (int i = 0; i < choices.size(); ++i) {
+        tmp = new int[GRID_SIZE][GRID_SIZE];
         memcpy(tmp, grid, GRID_SIZE * GRID_SIZE * sizeof(int));
         deploy_chess(tmp, choices[i]);  //取其中一个下棋点下棋
-        AlphaPara tmp_para(tmp, SEARCH_DEPTH, -1000000, 1000000, 1 ^ player);
-        para_set[i] = &tmp_para;
-        double alpha_1 = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, 1 ^ player);  //搜索返回预期的局面的结果
-        pthread_create(&thread_array[i], NULL, alphabeta_thread, (void *) &tmp_para);
+        tmp_para = new AlphaPara(tmp, SEARCH_DEPTH, -1000000, 1000000, -player);
+        para_set[i] = tmp_para;
+//        double alpha_1 = alphabeta(tmp, SEARCH_DEPTH, -1000000, 1000000, -player);  //搜索返回预期的局面的结果
+        pthread_create(&thread_array[i], NULL, alphabeta_thread, (void *) para_set[i]);
 //        pthread_join(thread_array[i],NULL);
         //如果取到了更优的结果，更新
     }
@@ -465,6 +458,9 @@ bool make_move_multithread(int grid[GRID_SIZE][GRID_SIZE], int player) {
             ai_choice = i;
             now_alpha = alpha;
         }
+    }
+    for (int i = 0; i < choices_size; ++i) {
+        delete[] para_set[i]->grid;
     }
     deploy_chess(grid, choices[ai_choice]); //正式采取这个下棋
     cout << "my move:" << endl;
